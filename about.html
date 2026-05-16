@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Notes on Listening</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#EDE3D0;--peche:#EAB48E;--terra:#C4614A;--or:#C9963A;--bordeaux:#6B2D3A;--caramel:#7A4E2D;--brun:#2E1A0E}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--creme);color:var(--brun);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:var(--creme);border-bottom:1px solid rgba(46,26,14,.1);transition:background .4s}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--brun);text-decoration:none}
+.nav-logo em{font-style:italic;color:var(--bordeaux)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--brun);text-decoration:none;opacity:.6;transition:opacity .2s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--brun);transition:all .3s}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bordeaux);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;color:var(--creme);text-decoration:none}
+
+/* HERO */
+.about-hero{min-height:70vh;background:var(--bordeaux);display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:40px;right:48px;font-family:'Playfair Display',serif;font-size:200px;font-weight:700;color:rgba(237,227,208,.03);line-height:1;pointer-events:none}
+.about-tag{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--or);opacity:.7;margin-bottom:24px}
+.about-title{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,72px);font-weight:500;color:var(--creme);line-height:1.1;margin-bottom:32px;max-width:700px}
+.about-title em{font-style:italic;color:var(--peche)}
+.about-intro{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:rgba(237,227,208,.6);line-height:1.65;max-width:560px;border-left:2px solid var(--terra);padding-left:24px}
+
+/* BODY */
+.about-body{max-width:760px;margin:0 auto;padding:100px 48px}
+.about-body p{font-size:16px;font-weight:300;line-height:1.9;color:var(--caramel);margin-bottom:24px}
+.about-body p.lead{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--bordeaux);line-height:1.65;margin-bottom:32px}
+
+.section-break{display:flex;align-items:center;gap:16px;margin:48px 0}
+.section-break-line{flex:1;height:1px;background:rgba(46,26,14,.1)}
+.section-break-dot{width:6px;height:6px;border-radius:50%;background:var(--terra);opacity:.4}
+
+/* RUBRIQUES */
+.about-rubriques{background:var(--brun);padding:100px 48px}
+.about-rubriques-inner{max-width:900px;margin:0 auto}
+.section-label{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--or);opacity:.7;margin-bottom:16px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,42px);font-weight:500;color:var(--creme);line-height:1.2;margin-bottom:56px}
+.section-heading em{font-style:italic;color:var(--peche)}
+.rub-list{display:flex;flex-direction:column;gap:0}
+.rub-item{display:flex;align-items:baseline;gap:24px;padding:24px 0;border-bottom:.5px solid rgba(237,227,208,.08)}
+.rub-item:first-child{border-top:.5px solid rgba(237,227,208,.08)}
+.rub-n{font-size:10px;letter-spacing:.15em;color:var(--or);opacity:.6;min-width:28px}
+.rub-content{}
+.rub-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--creme);margin-bottom:6px}
+.rub-desc{font-size:13px;font-weight:300;color:rgba(237,227,208,.5);line-height:1.6}
+
+/* CTA */
+.about-cta{background:var(--terra);padding:100px 48px;text-align:center}
+.cta-title{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(28px,4vw,48px);color:var(--creme);line-height:1.3;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--creme);text-decoration:none;border-bottom:1px solid rgba(237,227,208,.4);padding-bottom:4px;transition:border-color .2s}
+.cta-btn:hover{border-color:var(--creme)}
+
+/* FOOTER */
+footer{background:var(--bordeaux);padding:60px 48px 40px}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:32px;padding-bottom:32px;border-bottom:.5px solid rgba(237,227,208,.1);margin-bottom:24px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--creme)}
+.footer-logo em{font-style:italic;color:var(--peche)}
+.footer-links{display:flex;gap:32px}
+.footer-links a{font-size:12px;font-weight:300;color:rgba(237,227,208,.5);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--creme)}
+.footer-copy{font-size:11px;font-weight:300;color:rgba(237,227,208,.25)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .about-hero{padding:100px 24px 60px}
+  .about-body{padding:60px 24px}
+  .about-rubriques{padding:60px 24px}
+  .about-cta{padding:60px 24px}
+  footer{padding:48px 24px 32px}
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo"><em>Notes on</em> LISTENING</a>
+  <ul class="nav-links">
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="issues.html">Issues</a>
+  <a href="categories.html">Categories</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-bg">NOL</div>
+  <div class="reveal">
+    <p class="about-tag">About</p>
+    <h1 class="about-title">Notes on Listening is a space to explore what music <em>actually does</em> to us.</h1>
+    <p class="about-intro">The joy, the obsession, the communities it creates — and the science behind all of it.</p>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="about-body">
+  <p class="lead reveal">I've always felt music differently. I just never knew why.</p>
+  <p class="reveal">There's a specific kind of joy that happens when your favourite artist drops a new album. A specific kind of loss when a song reminds you of someone. A specific kind of belonging when you're in a crowd of strangers who all know every word.</p>
+  <p class="reveal">I wanted to understand those feelings — not just experience them. So I started digging. Into the neuroscience, the psychology, the culture. And Notes on Listening was born.</p>
+  <div class="section-break reveal"><div class="section-break-line"></div><div class="section-break-dot"></div><div class="section-break-line"></div></div>
+  <p class="reveal">This is not a music review site. There are no star ratings here, no "best albums of the year" lists. Notes on Listening is something different — a publication that treats music as what it actually is: one of the most emotionally complex experiences humans share.</p>
+  <p class="reveal">Articles go long. Questions go deep. And personal stories sit alongside peer-reviewed research, because that's how music actually works — it lives in both places at once.</p>
+  <div class="section-break reveal"><div class="section-break-line"></div><div class="section-break-dot"></div><div class="section-break-line"></div></div>
+  <p class="reveal">Notes on Listening publishes quarterly, in issues. Each issue has a theme. Everything in it — articles, Deep Cuts, columns, playlists — explores that theme from a different angle.</p>
+  <p class="reveal">Issue 00 is The First Time. The first listen. The first artist who made you feel understood. The first time you realised music doesn't hit everyone the same way it hits you.</p>
+</div>
+
+<!-- RUBRIQUES -->
+<section class="about-rubriques">
+  <div class="about-rubriques-inner">
+    <p class="section-label reveal">What's inside</p>
+    <h2 class="section-heading reveal">Six ways to explore <em>music</em></h2>
+    <div class="rub-list">
+      <div class="rub-item reveal">
+        <span class="rub-n">01</span>
+        <div class="rub-content">
+          <p class="rub-name">Moved</p>
+          <p class="rub-desc">The emotional side of music. Why a chord can undo you. What grief sounds like. How joy moves through the body.</p>
+        </div>
+      </div>
+      <div class="rub-item reveal reveal-delay-1">
+        <span class="rub-n">02</span>
+        <div class="rub-content">
+          <p class="rub-name">Fan Attachment</p>
+          <p class="rub-desc">The parasocial. The obsession. Why we feel close to artists we've never met — and what that says about us.</p>
+        </div>
+      </div>
+      <div class="rub-item reveal reveal-delay-2">
+        <span class="rub-n">03</span>
+        <div class="rub-content">
+          <p class="rub-name">Better Together</p>
+          <p class="rub-desc">Fandoms as safe spaces. The bond between strangers who share a passion. And the dark side.</p>
+        </div>
+      </div>
+      <div class="rub-item reveal">
+        <span class="rub-n">04</span>
+        <div class="rub-content">
+          <p class="rub-name">Sound of Self</p>
+          <p class="rub-desc">What our musical taste says about us. Guilty pleasures, identity, and the artists who help us define ourselves.</p>
+        </div>
+      </div>
+      <div class="rub-item reveal reveal-delay-1">
+        <span class="rub-n">05</span>
+        <div class="rub-content">
+          <p class="rub-name">Your Brain on Music</p>
+          <p class="rub-desc">Frisson, involuntary memory, neurodivergence, therapeutic sounds. Science, never cold.</p>
+        </div>
+      </div>
+      <div class="rub-item reveal reveal-delay-2">
+        <span class="rub-n">06</span>
+        <div class="rub-content">
+          <p class="rub-name">Behind the Music</p>
+          <p class="rub-desc">Artists writing about depression. The cost of public vulnerability. The making of an image.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta">
+  <p class="cta-title reveal">"Why do you feel understood by someone you've never met?"</p>
+  <a href="index.html" class="cta-btn reveal">Read Issue 00 →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo"><em>Notes on</em> LISTENING</p>
+    <nav class="footer-links">
+      <a href="issues.html">Issues</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 2025 Notes on Listening · Issue 00 · The First Time</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

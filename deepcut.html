@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why some people get chills from music — Notes on Listening</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#EDE3D0;--peche:#EAB48E;--terra:#C4614A;--or:#C9963A;--bordeaux:#6B2D3A;--caramel:#7A4E2D;--brun:#2E1A0E}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--creme);color:var(--brun);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--terra);z-index:1000;transition:width .1s linear}
+
+nav{position:fixed;top:3px;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:var(--creme);border-bottom:1px solid rgba(46,26,14,.1);transition:background .4s}
+nav.dark{background:var(--terra)}
+nav.dark .nav-logo{color:var(--creme)}
+nav.dark .nav-logo em{color:rgba(237,227,208,.8)}
+nav.dark .nav-links a{color:var(--creme)}
+nav.dark .nav-back{color:var(--creme);border-color:rgba(237,227,208,.3);opacity:.8}
+nav.dark .nav-burger span{background:var(--creme)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--brun);text-decoration:none}
+.nav-logo em{font-style:italic;color:var(--bordeaux)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--brun);text-decoration:none;opacity:.6;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-back{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);text-decoration:none;border-bottom:1px solid rgba(196,97,74,.3);padding-bottom:2px;opacity:.8;transition:opacity .2s}
+.nav-back:hover{opacity:1}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--brun);transition:all .3s}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bordeaux);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;color:var(--creme);text-decoration:none}
+
+/* HERO */
+.article-hero{min-height:80vh;background:var(--terra);display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 80px;position:relative;overflow:hidden}
+.hero-stat{position:absolute;top:50%;right:80px;transform:translateY(-50%);text-align:center;opacity:.12;pointer-events:none}
+.hero-stat-n{font-family:'Playfair Display',serif;font-size:180px;font-weight:700;color:var(--creme);line-height:1}
+.hero-stat-label{font-size:14px;font-weight:300;color:var(--creme);letter-spacing:.1em;text-transform:uppercase}
+.article-hero-inner{max-width:700px;position:relative;z-index:2}
+.hero-meta{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+.hero-rubrique{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(237,227,208,.6)}
+.hero-dot{width:3px;height:3px;border-radius:50%;background:rgba(237,227,208,.4)}
+.hero-issue{font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(237,227,208,.4)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,56px);font-weight:500;color:var(--creme);line-height:1.1;margin-bottom:28px}
+.hero-title em{font-style:italic;color:rgba(237,227,208,.75)}
+.hero-intro{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:rgba(237,227,208,.6);line-height:1.6;max-width:560px;border-left:2px solid rgba(237,227,208,.3);padding-left:24px}
+
+/* BODY */
+.article-body{max-width:680px;margin:0 auto;padding:80px 48px 60px}
+.article-body p{font-size:16px;font-weight:300;line-height:1.9;color:var(--caramel);margin-bottom:22px}
+.article-body p strong{font-weight:500;color:var(--brun)}
+
+/* KEY FACT */
+.key-fact{background:var(--bordeaux);padding:40px 48px;margin:60px -48px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center}
+.key-fact-num{font-family:'Playfair Display',serif;font-size:80px;font-weight:400;color:var(--or);line-height:1}
+.key-fact-text{font-size:15px;font-weight:300;color:rgba(237,227,208,.8);line-height:1.7}
+.key-fact-text strong{color:var(--creme);font-weight:400}
+
+/* NEXT */
+.next-section{background:var(--brun);padding:80px 48px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.next-label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--or);opacity:.5;margin-bottom:16px}
+.next-title{font-family:'Playfair Display',serif;font-style:italic;font-size:32px;color:var(--creme);line-height:1.2}
+.next-desc{font-size:14px;font-weight:300;color:rgba(237,227,208,.55);line-height:1.7;margin-bottom:24px}
+.next-cta{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--creme);text-decoration:none;border-bottom:1px solid rgba(237,227,208,.3);padding-bottom:3px;transition:border-color .2s;width:fit-content}
+.next-cta:hover{border-color:var(--creme)}
+
+footer{background:var(--bordeaux);padding:60px 48px 40px}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:32px;padding-bottom:32px;border-bottom:.5px solid rgba(237,227,208,.1);margin-bottom:24px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--creme)}
+.footer-logo em{font-style:italic;color:var(--peche)}
+.footer-links{display:flex;gap:32px}
+.footer-links a{font-size:12px;font-weight:300;color:rgba(237,227,208,.5);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--creme)}
+.footer-copy{font-size:11px;font-weight:300;color:rgba(237,227,208,.25)}
+
+.fade{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .article-hero{padding:100px 24px 60px}
+  .article-body{padding:48px 24px}
+  .key-fact{margin:40px -24px;padding:32px 24px;grid-template-columns:1fr;gap:16px}
+  .key-fact-num{font-size:60px}
+  .next-section{grid-template-columns:1fr;padding:60px 24px}
+  footer{padding:48px 24px 32px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo"><em>Notes on</em> LISTENING</a>
+  <ul class="nav-links">
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Issue 00</a>
+  <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="issues.html">Issues</a>
+  <a href="categories.html">Categories</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- HERO -->
+<section class="article-hero">
+  <div class="hero-stat">
+    <p class="hero-stat-n">50%</p>
+    <p class="hero-stat-label">never feel it</p>
+  </div>
+  <div class="article-hero-inner">
+    <div class="hero-meta fade">
+      <span class="hero-rubrique">Deep Cut · Your Brain on Music</span>
+      <span class="hero-dot"></span>
+      <span class="hero-issue">Issue 00</span>
+    </div>
+    <h1 class="hero-title fade">Why some people get chills from music — <em>and others don't</em></h1>
+    <p class="hero-intro fade">There's a name for it. And it has nothing to do with how much you love music.</p>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="article-body">
+
+  <p class="fade">Some people cry at concerts. Others stand there, perfectly fine, wondering what they're missing.</p>
+
+  <p class="fade">Neither is doing it wrong.</p>
+
+  <p class="fade">Research points to one personality trait that predicts who gets chills from music and who doesn't: <strong>Openness to Experience</strong>. People high in Openness engage with music cognitively — they follow the structure, they anticipate where it's going. And that active listening is exactly what makes the unexpected land harder.</p>
+
+  <p class="fade">When the song does something they didn't see coming — a key change, a silence held too long, a note that shouldn't work but does — the brain registers it as significant. The surprise is bigger. The emotional response follows. Their brains, scans show, have stronger connections between the auditory cortex and the areas that process emotion.</p>
+
+  <div class="key-fact fade">
+    <p class="key-fact-num">50%</p>
+    <p class="key-fact-text"><strong>of people never experience frisson</strong> — the physical chills that music causes. Goosebumps. A shiver down the spine. Something moving through the chest. It's a real neurological event. And roughly half the people you know have never felt it.</p>
+  </div>
+
+  <p class="fade">It's called frisson. And it isn't just emotional — it's cognitive. The more you listen <em>with</em> your brain, the more your skin reacts.</p>
+
+  <p class="fade">So if you've ever tried to describe that physical shiver to someone and watched them look at you blankly — they weren't being dismissive. They genuinely don't feel it. Their brain isn't wired for it.</p>
+
+  <p class="fade">Which means that for about half the people you know, music has never once touched their skin.</p>
+
+  <p class="fade">And which also means this: technically, you can train yourself to feel it more. Engage more. Predict more. Let yourself be wrong about where the song is going. The surprise is the whole point.</p>
+
+</div>
+
+<!-- NEXT -->
+<section class="next-section">
+  <div>
+    <p class="next-label">Feature · Issue 00</p>
+    <h2 class="next-title">What happens to your brain when your favourite artist drops a new album?</h2>
+  </div>
+  <div>
+    <p class="next-desc">The dopamine, the dancing at midnight, the voice messages sent at 1am. And the science behind all of it.</p>
+    <a href="article.html" class="next-cta">Read the feature →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo"><em>Notes on</em> LISTENING</p>
+    <nav class="footer-links">
+      <a href="issues.html">Issues</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 2025 Notes on Listening · Issue 00 · The First Time</p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progress-bar').style.width = p + '%';
+    document.getElementById('main-nav').classList.toggle('dark', window.scrollY < window.innerHeight * 0.7);
+  });
+  document.getElementById('main-nav').classList.add('dark');
+
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  const ro = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting) el.target.classList.add('visible'); }), {threshold:.1});
+  document.querySelectorAll('.fade').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

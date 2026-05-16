@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notes on Listening</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme: #EDE3D0;
+    --peche: #EAB48E;
+    --terracotta: #C4614A;
+    --or: #C9963A;
+    --bordeaux: #6B2D3A;
+    --caramel: #7A4E2D;
+    --brun: #2E1A0E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--creme);
+    color: var(--brun);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* READING PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--terracotta);
+    z-index: 1000;
+    transition: width 0.1s linear;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 3px; left: 0; right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--creme);
+    border-bottom: 1px solid rgba(46,26,14,0.1);
+    transition: background 0.4s;
+  }
+
+  nav.dark {
+    background: var(--bordeaux);
+  }
+
+  nav.dark .nav-logo,
+  nav.dark .nav-links a {
+    color: var(--creme);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--brun);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-logo em {
+    font-style: italic;
+    color: var(--bordeaux);
+  }
+
+  nav.dark .nav-logo em {
+    color: var(--peche);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brun);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-issue {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    opacity: 0.8;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    background: var(--bordeaux);
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 280px;
+    height: 280px;
+    border: 1px solid rgba(237,227,208,0.1);
+    border-radius: 50%;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 180px;
+    height: 180px;
+    border: 1px solid rgba(237,227,208,0.08);
+    border-radius: 50%;
+  }
+
+  .issue-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 500;
+    color: var(--creme);
+    line-height: 1.1;
+    margin-bottom: 32px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--peche);
+  }
+
+  .hero-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.75);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 48px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--creme);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(237,227,208,0.3);
+    padding-bottom: 4px;
+    transition: border-color 0.2s;
+    width: fit-content;
+  }
+
+  .hero-cta:hover { border-color: var(--peche); color: var(--peche); }
+
+  .hero-right {
+    background: var(--creme);
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .toc-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 40px;
+    opacity: 0.8;
+  }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(46,26,14,0.08);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .toc-item:hover .toc-item-title {
+    color: var(--terracotta);
+  }
+
+  .toc-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--or);
+    letter-spacing: 0.1em;
+    min-width: 28px;
+  }
+
+  .toc-item-content { flex: 1; }
+
+  .toc-rubrique {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  .toc-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--brun);
+    line-height: 1.2;
+    transition: color 0.2s;
+  }
+
+  .toc-arrow {
+    font-size: 14px;
+    color: var(--terracotta);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .toc-item:hover .toc-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* LOGO SECTION */
+  .logo-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background: var(--creme);
+  }
+
+  .logo-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .arc-logo {
+    width: 60px;
+    height: 40px;
+  }
+
+  /* FEATURE ARTICLE */
+  .feature {
+    background: var(--brun);
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature::before {
+    content: 'FEATURE';
+    position: absolute;
+    top: 48px;
+    left: 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    color: var(--or);
+    opacity: 0.6;
+  }
+
+  .feature-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .feature-category {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--peche);
+    margin-bottom: 24px;
+    opacity: 0.8;
+  }
+
+  .feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 500;
+    color: var(--creme);
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+
+  .feature-title em {
+    font-style: italic;
+    color: var(--peche);
+  }
+
+  .feature-excerpt {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(237,227,208,0.65);
+    line-height: 1.6;
+    margin-bottom: 48px;
+    border-left: 2px solid var(--terracotta);
+    padding-left: 28px;
+  }
+
+  .feature-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.75);
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--peche);
+    text-decoration: none;
+    border: 1px solid rgba(234,180,142,0.3);
+    padding: 14px 28px;
+    transition: all 0.25s;
+  }
+
+  .read-more:hover {
+    background: var(--peche);
+    color: var(--brun);
+    border-color: var(--peche);
+  }
+
+  /* DEEP CUT */
+  .deep-cut {
+    background: var(--terracotta);
+    padding: 100px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .deep-cut-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(237,227,208,0.6);
+    margin-bottom: 24px;
+  }
+
+  .deep-cut-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 500;
+    color: var(--creme);
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+
+  .deep-cut-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.8);
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  .deep-cut-stat {
+    background: rgba(46,26,14,0.2);
+    padding: 36px;
+    border-left: 3px solid var(--or);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 400;
+    color: var(--or);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--creme);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* RUBRIQUES GRID */
+  .rubriques {
+    padding: 100px 48px;
+    background: var(--creme);
+  }
+
+  .rubriques-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 56px;
+    border-bottom: 1px solid rgba(46,26,14,0.1);
+    padding-bottom: 24px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--brun);
+  }
+
+  .section-title em { font-style: italic; color: var(--terracotta); }
+
+  .see-all {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .see-all:hover { opacity: 1; }
+
+  .rubriques-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .rubrique-card {
+    padding: 40px 36px;
+    background: var(--creme);
+    border: 1px solid rgba(46,26,14,0.08);
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .rubrique-card:hover {
+    background: var(--bordeaux);
+  }
+
+  .rubrique-card:hover .rubrique-name,
+  .rubrique-card:hover .rubrique-desc {
+    color: var(--creme);
+  }
+
+  .rubrique-card:hover .rubrique-tag {
+    color: var(--peche);
+  }
+
+  .rubrique-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 16px;
+    transition: color 0.25s;
+  }
+
+  .rubrique-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--brun);
+    margin-bottom: 12px;
+    transition: color 0.25s;
+  }
+
+  .rubrique-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(46,26,14,0.6);
+    line-height: 1.6;
+    transition: color 0.25s;
+  }
+
+  /* THE QUESTION */
+  .question-section {
+    background: var(--or);
+    padding: 100px 48px;
+    text-align: center;
+  }
+
+  .question-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brun);
+    opacity: 0.6;
+    margin-bottom: 32px;
+  }
+
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 400;
+    color: var(--brun);
+    line-height: 1.3;
+    max-width: 700px;
+    margin: 0 auto 48px;
+  }
+
+  .question-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brun);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(46,26,14,0.4);
+    padding-bottom: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .question-cta:hover { border-color: var(--brun); }
+
+  /* PLAYLIST */
+  .playlist-section {
+    background: var(--creme);
+    padding: 100px 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .playlist-intro { position: sticky; top: 120px; }
+
+  .playlist-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--brun);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .playlist-title em { font-style: italic; color: var(--terracotta); }
+
+  .playlist-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(46,26,14,0.6);
+    line-height: 1.6;
+  }
+
+  .playlist-tracks { display: flex; flex-direction: column; gap: 0; }
+
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(46,26,14,0.08);
+    transition: all 0.2s;
+  }
+
+  .track:hover { padding-left: 8px; }
+
+  .track-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--or);
+    min-width: 20px;
+    text-align: right;
+    opacity: 0.7;
+  }
+
+  .track-info { flex: 1; }
+
+  .track-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--brun);
+    margin-bottom: 3px;
+  }
+
+  .track-artist {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(46,26,14,0.5);
+  }
+
+  .track-why {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--terracotta);
+    font-style: italic;
+    max-width: 200px;
+    text-align: right;
+    opacity: 0.8;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bordeaux);
+    padding: 80px 48px 48px;
+  }
+
+  .footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(237,227,208,0.1);
+  }
+
+  .footer-brand {}
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--creme);
+    margin-bottom: 16px;
+  }
+
+  .footer-logo em { font-style: italic; color: var(--peche); }
+
+  .footer-tagline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.5);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 64px;
+  }
+
+  .footer-nav-col h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  .footer-nav-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-nav-col a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-nav-col a:hover { color: var(--creme); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.3);
+  }
+
+  .footer-issue {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(237,227,208,0.3);
+  }
+
+  /* FIRST LISTEN */
+  .first-listen {
+    background: var(--brun);
+    padding: 100px 48px;
+  }
+
+  .first-listen-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--peche);
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .first-listen-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 500;
+    color: var(--creme);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .first-listen-title em { font-style: italic; color: var(--peche); }
+
+  .first-listen-intro {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.5);
+    line-height: 1.7;
+    margin-bottom: 64px;
+    max-width: 560px;
+  }
+
+  .first-listen-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 1px solid rgba(237,227,208,0.1);
+    padding-left: 40px;
+  }
+
+  .note-entry {
+    display: flex;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(237,227,208,0.06);
+    position: relative;
+  }
+
+  .note-entry::before {
+    content: '';
+    position: absolute;
+    left: -44px;
+    top: 36px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+
+  .note-timestamp {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--or);
+    min-width: 60px;
+    padding-top: 3px;
+  }
+
+  .note-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(237,227,208,0.8);
+    line-height: 1.65;
+  }
+
+  /* ON REPEAT */
+  .on-repeat {
+    background: var(--bordeaux);
+    padding: 100px 48px;
+  }
+
+  .on-repeat-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .on-repeat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 500;
+    color: var(--creme);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .on-repeat-title em { font-style: italic; color: var(--peche); }
+
+  .on-repeat-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.5);
+    line-height: 1.6;
+  }
+
+  .on-repeat-card {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    background: rgba(46,26,14,0.3);
+    padding: 40px;
+  }
+
+  .on-repeat-vinyl {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    animation: spin 12s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .on-repeat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+
+  .on-repeat-song {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--creme);
+    margin-bottom: 4px;
+  }
+
+  .on-repeat-artist {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--peche);
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .on-repeat-why {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.65);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .on-repeat-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(237,227,208,0.35);
+  }
+
+  .on-repeat-count em { font-style: italic; color: var(--or); opacity: 0.7; }
+
+  /* RECOMMENDS */
+  .recommends {
+    background: var(--creme);
+    padding: 100px 48px;
+  }
+
+  .recommends-header {
+    max-width: 600px;
+    margin-bottom: 56px;
+  }
+
+  .recommends-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 500;
+    color: var(--brun);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .recommends-title em { font-style: italic; color: var(--terracotta); }
+
+  .recommends-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(46,26,14,0.55);
+    line-height: 1.7;
+  }
+
+  .recommends-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .recommend-card {
+    background: rgba(46,26,14,0.04);
+    border: 1px solid rgba(46,26,14,0.08);
+    padding: 40px;
+    transition: all 0.25s;
+  }
+
+  .recommend-card--featured {
+    background: var(--caramel);
+  }
+
+  .recommend-card--featured .recommend-title,
+  .recommend-card--featured .recommend-author,
+  .recommend-card--featured .recommend-why {
+    color: var(--creme);
+  }
+
+  .recommend-card--featured .recommend-author {
+    opacity: 0.6;
+  }
+
+  .recommend-card--featured .recommend-why {
+    opacity: 0.8;
+  }
+
+  .recommend-type {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bordeaux);
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  .recommend-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--brun);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .recommend-author {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(46,26,14,0.45);
+    margin-bottom: 20px;
+  }
+
+  .recommend-why {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(46,26,14,0.65);
+    line-height: 1.75;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.25s; }
+  .fade-up-3 { animation-delay: 0.4s; }
+  .fade-up-4 { animation-delay: 0.55s; }
+
+  /* MOBILE BURGER */
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--brun);
+    transition: all 0.3s;
+  }
+  nav.dark .nav-burger span { background: var(--creme); }
+  .nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--bordeaux);
+    z-index: 998;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--creme);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--peche); }
+  .mobile-issue {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--or);
+    opacity: 0.6;
+    margin-top: 20px;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+    .nav-issue { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left, .hero-right { padding: 60px 32px; }
+    .deep-cut { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+    .rubriques-grid { grid-template-columns: 1fr; }
+    .playlist-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+    .playlist-intro { position: static; }
+    .footer-top { flex-direction: column; gap: 48px; }
+    .footer-nav { gap: 40px; }
+    .on-repeat-inner { grid-template-columns: 1fr; gap: 40px; }
+    .on-repeat-card { flex-direction: column; }
+    .recommends-grid { grid-template-columns: 1fr; }
+    .first-listen { padding: 60px 24px; }
+    .on-repeat { padding: 60px 24px; }
+    .recommends { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo"><em>Notes on</em> LISTENING</a>
+  <ul class="nav-links">
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <span class="nav-issue">Issue 00 · The First Time</span>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="issues.html">Issues</a>
+  <a href="categories.html">Categories</a>
+  <a href="about.html">About</a>
+  <span class="mobile-issue">Issue 00 · The First Time</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="issue-label fade-up fade-up-1">Issue 00 · The First Time</p>
+    <h1 class="hero-title fade-up fade-up-2">
+      What is actually<br>
+      <em>happening</em><br>
+      right now?
+    </h1>
+    <p class="hero-desc fade-up fade-up-3">
+      Why does music make us this happy? Why this specific music, this specific night? That question is why Notes on Listening exists.
+    </p>
+    <a href="#feature" class="hero-cta fade-up fade-up-4">
+      Read the issue →
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <p class="toc-label">In this issue</p>
+    <ul class="toc-list">
+      <a href="article.html" class="toc-item reveal">
+        <span class="toc-num">01</span>
+        <div class="toc-item-content">
+          <p class="toc-rubrique">Feature · Your Brain on Music</p>
+          <p class="toc-item-title">What happens to your brain when your favourite artist drops a new album?</p>
+        </div>
+        <span class="toc-arrow">→</span>
+      </a>
+      <a href="deepcut.html" class="toc-item reveal reveal-delay-1">
+        <span class="toc-num">02</span>
+        <div class="toc-item-content">
+          <p class="toc-rubrique">Deep Cut</p>
+          <p class="toc-item-title">Why some people get chills from music — and others don't</p>
+        </div>
+        <span class="toc-arrow">→</span>
+      </a>
+      <a href="#first-listen" class="toc-item reveal reveal-delay-2">
+        <span class="toc-num">03</span>
+        <div class="toc-item-content">
+          <p class="toc-rubrique">First Listen</p>
+          <p class="toc-item-title">Notes in real time</p>
+        </div>
+        <span class="toc-arrow">→</span>
+      </a>
+      <a href="#question" class="toc-item reveal reveal-delay-3">
+        <span class="toc-num">04</span>
+        <div class="toc-item-content">
+          <p class="toc-rubrique">The Question</p>
+          <p class="toc-item-title">What was the first time you realised music doesn't hit everyone the same way?</p>
+        </div>
+        <span class="toc-arrow">→</span>
+      </a>
+    </ul>
+  </div>
+</section>
+
+<!-- FEATURE -->
+<section class="feature" id="feature">
+  <div class="feature-inner">
+    <p class="feature-category">Feature · Moved</p>
+    <h2 class="feature-title">
+      Dancing at<br><em>Midnight</em>
+    </h2>
+    <p class="feature-excerpt">
+      I wasn't supposed to listen to it there. I was at my sister's. The album had just dropped and I couldn't wait — not even long enough to get home, not even long enough to have both earbuds in.
+    </p>
+    <p class="feature-body">
+      Somewhere in the middle of all that dancing, I started wondering — what is actually happening right now? Why is music making me this happy? Why this specific music? What I found is that anticipating music activates the same reward circuit in the brain as basic needs — and, as it turns out, cocaine and amphetamines.
+    </p>
+    <a href="article.html" class="read-more">Read the full essay →</a>
+  </div>
+</section>
+
+<!-- DEEP CUT -->
+<section class="deep-cut">
+  <div>
+    <p class="deep-cut-label">Deep Cut · Your Brain on Music</p>
+    <h2 class="deep-cut-title">There's a name for the chills music gives you.</h2>
+    <p class="deep-cut-body">
+      You know that feeling — a song hits a certain chord, a voice does something unexpected, and suddenly your skin reacts. Goosebumps. A shiver. Something moving through your chest. It's called frisson. And roughly 50% of people never experience it at all.
+    </p>
+    <a href="deepcut.html" class="read-more" style="color: var(--creme); border-color: rgba(237,227,208,0.3);">Read more →</a>
+  </div>
+  <div class="deep-cut-stat">
+    <p class="stat-number">50%</p>
+    <p class="stat-label">of people never experience frisson — the physical chills that music can cause. It has nothing to do with how much you love music.</p>
+  </div>
+</section>
+
+<!-- RUBRIQUES -->
+<section class="rubriques">
+  <div class="rubriques-header">
+    <h2 class="section-title">Explore by <em>category</em></h2>
+    <a href="categories.html" class="see-all">All categories →</a>
+  </div>
+  <div class="rubriques-grid">
+    <a href="categories.html#moved" class="rubrique-card">
+      <p class="rubrique-tag">01</p>
+      <p class="rubrique-name">Moved</p>
+      <p class="rubrique-desc">Why we cry on harmonies. Why music changes a mood in 30 seconds. The raw emotions.</p>
+    </a>
+    <a href="#" class="rubrique-card">
+      <p class="rubrique-tag">02</p>
+      <p class="rubrique-name">Fan Attachment</p>
+      <p class="rubrique-desc">Parasocial relationships, the grief when an artist disappears, loving someone who doesn't know you exist.</p>
+    </a>
+    <a href="#" class="rubrique-card">
+      <p class="rubrique-tag">03</p>
+      <p class="rubrique-name">Better Together</p>
+      <p class="rubrique-desc">Fandoms as safe spaces. The bond between strangers who share a passion. And the dark side.</p>
+    </a>
+    <a href="#" class="rubrique-card">
+      <p class="rubrique-tag">04</p>
+      <p class="rubrique-name">Sound of Self</p>
+      <p class="rubrique-desc">What our musical taste says about us. Guilty pleasures, identity, and the artists who help us define ourselves.</p>
+    </a>
+    <a href="#" class="rubrique-card">
+      <p class="rubrique-tag">05</p>
+      <p class="rubrique-name">Your Brain on Music</p>
+      <p class="rubrique-desc">Frisson, involuntary memory, neurodivergence, therapeutic sounds. Science, never cold.</p>
+    </a>
+    <a href="#" class="rubrique-card">
+      <p class="rubrique-tag">06</p>
+      <p class="rubrique-name">Behind the Music</p>
+      <p class="rubrique-desc">Artists writing about depression. The cost of public vulnerability. The making of an image.</p>
+    </a>
+  </div>
+</section>
+
+<!-- THE QUESTION -->
+<section class="question-section" id="question">
+  <p class="question-label">The Question · Issue 00</p>
+  <p class="question-text">
+    "What was the first time you realised music doesn't hit everyone the same way it hits you?"
+  </p>
+  <a href="#" class="question-cta">Share your answer →</a>
+</section>
+
+<!-- PLAYLIST -->
+<section class="playlist-section">
+  <div class="playlist-intro">
+    <p class="toc-label">La Playlist</p>
+    <h2 class="playlist-title">The <em>First Time</em></h2>
+    <p class="playlist-subtitle">A selection built around the theme of the issue. Each track chosen for a reason.</p>
+  </div>
+  <div class="playlist-tracks">
+    <div class="track">
+      <span class="track-num">01</span>
+      <div class="track-info">
+        <p class="track-name">The Chain</p>
+        <p class="track-artist">Fleetwood Mac</p>
+      </div>
+      <p class="track-why">The moment everything clicks</p>
+    </div>
+    <div class="track">
+      <span class="track-num">02</span>
+      <div class="track-info">
+        <p class="track-name">I Feel It Coming</p>
+        <p class="track-artist">The Weeknd</p>
+      </div>
+      <p class="track-why">Pure anticipation</p>
+    </div>
+    <div class="track">
+      <span class="track-num">03</span>
+      <div class="track-info">
+        <p class="track-name">As It Was</p>
+        <p class="track-artist">Harry Styles</p>
+      </div>
+      <p class="track-why">A first listen you remember</p>
+    </div>
+    <div class="track">
+      <span class="track-num">04</span>
+      <div class="track-info">
+        <p class="track-name">Tapestry</p>
+        <p class="track-artist">Carole King</p>
+      </div>
+      <p class="track-why">Felt understood immediately</p>
+    </div>
+    <div class="track">
+      <span class="track-num">05</span>
+      <div class="track-info">
+        <p class="track-name">Midnight Rain</p>
+        <p class="track-artist">Taylor Swift</p>
+      </div>
+      <p class="track-why">Dancing at 2am energy</p>
+    </div>
+  </div>
+</section>
+
+<!-- FIRST LISTEN -->
+<section class="first-listen" id="first-listen">
+  <div class="first-listen-inner">
+    <div class="first-listen-header">
+      <p class="section-tag">First Listen</p>
+      <h2 class="first-listen-title">Notes in <em>real time</em></h2>
+      <p class="first-listen-intro">No conclusions. No editing. Just what happened when I pressed play for the first time — written as it happened.</p>
+    </div>
+    <div class="first-listen-notes">
+      <div class="note-entry">
+        <span class="note-timestamp">0:00</span>
+        <p class="note-text">Okay. Here we go. Headphones on. Volume up. I've been waiting for this for three months.</p>
+      </div>
+      <div class="note-entry">
+        <span class="note-timestamp">Track 1</span>
+        <p class="note-text">The opening is quieter than I expected. Almost like he's holding back. Already I can feel it — that specific thing when you recognise a voice and your whole body relaxes.</p>
+      </div>
+      <div class="note-entry">
+        <span class="note-timestamp">Track 3</span>
+        <p class="note-text">I'm pacing. I don't realise I'm doing it until I notice I'm in the kitchen. How did I get here.</p>
+      </div>
+      <div class="note-entry">
+        <span class="note-timestamp">Track 5</span>
+        <p class="note-text">This one. This one is it. I don't know what it is yet but it's the one I'll listen to 200 times. Already I know.</p>
+      </div>
+      <div class="note-entry">
+        <span class="note-timestamp">Track 7</span>
+        <p class="note-text">A specific chord just happened and I stopped walking. Just stood there. That's the thing — music can make you freeze mid-step.</p>
+      </div>
+      <div class="note-entry">
+        <span class="note-timestamp">End</span>
+        <p class="note-text">I'm going to listen again from the beginning. I was already thinking that before the last song finished. That thought alone — the anticipation of pressing play again — is making me happy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ON REPEAT -->
+<section class="on-repeat" id="on-repeat">
+  <div class="on-repeat-inner">
+    <div class="on-repeat-left">
+      <p class="section-tag" style="color: var(--or);">On Repeat</p>
+      <h2 class="on-repeat-title">What I can't<br><em>stop playing</em></h2>
+      <p class="on-repeat-subtitle">One song or album. Right now. And why I can't leave it alone.</p>
+    </div>
+    <div class="on-repeat-card">
+      <div class="on-repeat-vinyl">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="95" fill="#2E1A0E"/>
+          <circle cx="100" cy="100" r="75" fill="#1a0f08"/>
+          <circle cx="100" cy="100" r="55" fill="#2E1A0E"/>
+          <circle cx="100" cy="100" r="35" fill="#6B2D3A"/>
+          <circle cx="100" cy="100" r="20" fill="#2E1A0E"/>
+          <circle cx="100" cy="100" r="6" fill="#C9963A"/>
+        </svg>
+      </div>
+      <div class="on-repeat-info">
+        <p class="on-repeat-label">This issue</p>
+        <p class="on-repeat-song">[Album Title]</p>
+        <p class="on-repeat-artist">[Artist Name]</p>
+        <p class="on-repeat-why">It found me at exactly the right moment. I wasn't looking for it — or maybe I was, without knowing. That's the thing about music that gets you: it doesn't ask for permission. It just arrives, and suddenly everything else is quieter.</p>
+        <p class="on-repeat-count">Listened: <em>countless times this week</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDS -->
+<section class="recommends" id="recommends">
+  <div class="recommends-header">
+    <p class="section-tag" style="color: var(--terracotta); opacity: 0.8;">Recommends</p>
+    <h2 class="recommends-title">Beyond the <em>music</em></h2>
+    <p class="recommends-subtitle">One cultural object that resonates with the theme of this issue. A film, a book, a show — whatever is living alongside the music right now.</p>
+  </div>
+  <div class="recommends-grid">
+    <div class="recommend-card">
+      <div class="recommend-type">Book</div>
+      <p class="recommend-title">This Is Your Brain on Music</p>
+      <p class="recommend-author">Daniel J. Levitin</p>
+      <p class="recommend-why">The book that started everything for me. A neuroscientist who was a record producer first — so he writes about music the way someone who has loved it writes. If you want to understand why music does what it does to you, this is the beginning.</p>
+    </div>
+    <div class="recommend-card recommend-card--featured">
+      <div class="recommend-type" style="color: var(--or);">Film</div>
+      <p class="recommend-title">20 Feet from Stardom</p>
+      <p class="recommend-author">Dir. Morgan Neville, 2013</p>
+      <p class="recommend-why">A documentary about backup singers — people whose voices you've heard thousands of times without knowing their names. It's about invisibility, about what it costs to be close to something great without being the centre of it. It stayed with me for days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <p class="footer-logo"><em>Notes on</em> LISTENING</p>
+      <p class="footer-tagline">A space where we explore what music actually does to us. The joy, the obsession, the why.</p>
+    </div>
+    <nav class="footer-nav">
+      <div class="footer-nav-col">
+        <h4>Magazine</h4>
+        <ul>
+          <li><a href="#">Issues</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Playlist</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Notes on Listening</p>
+    <p class="footer-issue"><em>Issue 00 · The First Time</em></p>
+  </div>
+</footer>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+  });
+
+  // Nav color change
+  const darkSections = document.querySelectorAll('.feature, .first-listen, .on-repeat, footer');
+  const nav = document.getElementById('main-nav');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) nav.classList.add('dark'); });
+  }, { threshold: 0.1, rootMargin: '-80px 0px 0px 0px' });
+  const lightSections = document.querySelectorAll('.hero, .rubriques, .playlist-section, .question-section, .deep-cut, .recommends');
+  const lightObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) nav.classList.remove('dark'); });
+  }, { threshold: 0.3 });
+  darkSections.forEach(s => observer.observe(s));
+  lightSections.forEach(s => lightObserver.observe(s));
+
+  // Mobile menu
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

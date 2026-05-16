@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories — Notes on Listening</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#EDE3D0;--peche:#EAB48E;--terra:#C4614A;--or:#C9963A;--bordeaux:#6B2D3A;--caramel:#7A4E2D;--brun:#2E1A0E}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--creme);color:var(--brun);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:var(--creme);border-bottom:1px solid rgba(46,26,14,.1)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--brun);text-decoration:none}
+.nav-logo em{font-style:italic;color:var(--bordeaux)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--brun);text-decoration:none;opacity:.6;transition:opacity .2s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--brun);transition:all .3s}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bordeaux);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;color:var(--creme);text-decoration:none}
+
+.page-header{padding:140px 48px 80px;border-bottom:1px solid rgba(46,26,14,.08)}
+.page-tag{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);opacity:.7;margin-bottom:16px}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:500;color:var(--brun);line-height:1.1}
+.page-title em{font-style:italic;color:var(--terra)}
+.page-subtitle{font-size:15px;font-weight:300;color:rgba(46,26,14,.5);line-height:1.7;max-width:500px;margin-top:20px}
+
+/* CATEGORIES */
+.categories{padding:0}
+
+.category-block{display:grid;grid-template-columns:360px 1fr;min-height:400px;border-bottom:1px solid rgba(46,26,14,.08)}
+.category-block:nth-child(even) .cat-left{order:2}
+.category-block:nth-child(even) .cat-right{order:1}
+
+.cat-left{padding:60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.cat-left-01{background:var(--bordeaux)}
+.cat-left-02{background:var(--terra)}
+.cat-left-03{background:var(--or)}
+.cat-left-04{background:var(--brun)}
+.cat-left-05{background:var(--caramel)}
+.cat-left-06{background:var(--bordeaux)}
+
+.cat-bg-num{position:absolute;bottom:-20px;right:-10px;font-family:'Playfair Display',serif;font-size:160px;font-weight:700;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+
+.cat-n{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.dark-text .cat-n{color:rgba(237,227,208,.4)}
+.light-text .cat-n{color:rgba(46,26,14,.4)}
+
+.cat-name{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,40px);font-weight:500;line-height:1.15;margin-bottom:16px}
+.dark-text .cat-name{color:var(--creme)}
+.light-text .cat-name{color:var(--brun)}
+
+.cat-tagline{font-size:13px;font-weight:300;line-height:1.65}
+.dark-text .cat-tagline{color:rgba(237,227,208,.55)}
+.light-text .cat-tagline{color:rgba(46,26,14,.55)}
+
+.cat-right{padding:60px;display:flex;flex-direction:column;justify-content:center;gap:0;background:var(--creme);border-left:1px solid rgba(46,26,14,.06)}
+
+.cat-article{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:.5px solid rgba(46,26,14,.08);text-decoration:none;color:inherit;transition:padding-left .2s}
+.cat-article:first-child{border-top:.5px solid rgba(46,26,14,.08)}
+.cat-article:hover{padding-left:8px}
+.cat-article-type{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);opacity:.6;min-width:70px}
+.cat-article-title{font-size:14px;font-weight:300;color:var(--caramel);line-height:1.5;flex:1}
+.cat-article:hover .cat-article-title{color:var(--brun)}
+.cat-empty{font-size:13px;font-weight:300;color:rgba(46,26,14,.25);font-style:italic;padding:24px 0}
+
+footer{background:var(--bordeaux);padding:60px 48px 40px}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:32px;padding-bottom:32px;border-bottom:.5px solid rgba(237,227,208,.1);margin-bottom:24px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--creme)}
+.footer-logo em{font-style:italic;color:var(--peche)}
+.footer-links{display:flex;gap:32px}
+.footer-links a{font-size:12px;font-weight:300;color:rgba(237,227,208,.5);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--creme)}
+.footer-copy{font-size:11px;font-weight:300;color:rgba(237,227,208,.25)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .page-header{padding:100px 24px 48px}
+  .category-block{grid-template-columns:1fr}
+  .category-block:nth-child(even) .cat-left,.category-block:nth-child(even) .cat-right{order:unset}
+  .cat-left,.cat-right{padding:40px 24px}
+  footer{padding:48px 24px 32px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><em>Notes on</em> LISTENING</a>
+  <ul class="nav-links">
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="categories.html" class="active">Categories</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="issues.html">Issues</a>
+  <a href="categories.html">Categories</a>
+  <a href="about.html">About</a>
+</div>
+
+<div class="page-header">
+  <p class="page-tag reveal">Explore</p>
+  <h1 class="page-title reveal">Six <em>categories.</em><br>One obsession.</h1>
+  <p class="page-subtitle reveal">Every article in Notes on Listening lives in one of six territories. Find the one that speaks to you.</p>
+</div>
+
+<div class="categories">
+
+  <div class="category-block reveal" id="moved">
+    <div class="cat-left cat-left-01 dark-text">
+      <div class="cat-bg-num">01</div>
+      <p class="cat-n">01</p>
+      <h2 class="cat-name">Moved</h2>
+      <p class="cat-tagline">The emotional side. Why a chord can undo you. What grief sounds like. How joy moves through the body.</p>
+    </div>
+    <div class="cat-right">
+      <a href="article.html" class="cat-article">
+        <span class="cat-article-type">Feature</span>
+        <span class="cat-article-title">What happens to your brain when your favourite artist drops a new album?</span>
+      </a>
+      <p class="cat-empty">More coming in Issue 01</p>
+    </div>
+  </div>
+
+  <div class="category-block reveal" id="fan-attachment">
+    <div class="cat-left cat-left-02 dark-text">
+      <div class="cat-bg-num">02</div>
+      <p class="cat-n">02</p>
+      <h2 class="cat-name">Fan Attachment</h2>
+      <p class="cat-tagline">The parasocial. The obsession. Why we feel close to artists we've never met — and what that says about us.</p>
+    </div>
+    <div class="cat-right">
+      <p class="cat-empty">Coming in Issue 01</p>
+    </div>
+  </div>
+
+  <div class="category-block reveal" id="better-together">
+    <div class="cat-left cat-left-03 light-text">
+      <div class="cat-bg-num">03</div>
+      <p class="cat-n">03</p>
+      <h2 class="cat-name">Better Together</h2>
+      <p class="cat-tagline">Fandoms as safe spaces. The bond between strangers who share a passion. And the dark side.</p>
+    </div>
+    <div class="cat-right">
+      <p class="cat-empty">Coming in Issue 01</p>
+    </div>
+  </div>
+
+  <div class="category-block reveal" id="sound-of-self">
+    <div class="cat-left cat-left-04 dark-text">
+      <div class="cat-bg-num">04</div>
+      <p class="cat-n">04</p>
+      <h2 class="cat-name">Sound of Self</h2>
+      <p class="cat-tagline">What our musical taste says about us. Guilty pleasures, identity, and the artists who help us define ourselves.</p>
+    </div>
+    <div class="cat-right">
+      <p class="cat-empty">Coming in Issue 01</p>
+    </div>
+  </div>
+
+  <div class="category-block reveal" id="your-brain">
+    <div class="cat-left cat-left-05 dark-text">
+      <div class="cat-bg-num">05</div>
+      <p class="cat-n">05</p>
+      <h2 class="cat-name">Your Brain on Music</h2>
+      <p class="cat-tagline">Frisson, involuntary memory, neurodivergence, therapeutic sounds. Science, never cold.</p>
+    </div>
+    <div class="cat-right">
+      <a href="deepcut.html" class="cat-article">
+        <span class="cat-article-type">Deep Cut</span>
+        <span class="cat-article-title">Why some people get chills from music — and others don't</span>
+      </a>
+      <p class="cat-empty">More coming in Issue 01</p>
+    </div>
+  </div>
+
+  <div class="category-block reveal" id="behind-music">
+    <div class="cat-left cat-left-06 dark-text">
+      <div class="cat-bg-num">06</div>
+      <p class="cat-n">06</p>
+      <h2 class="cat-name">Behind the Music</h2>
+      <p class="cat-tagline">Artists writing about depression. The cost of public vulnerability. The making of an image.</p>
+    </div>
+    <div class="cat-right">
+      <p class="cat-empty">Coming in Issue 01</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo"><em>Notes on</em> LISTENING</p>
+    <nav class="footer-links">
+      <a href="issues.html">Issues</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 2025 Notes on Listening · Issue 00 · The First Time</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  const ro = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting) el.target.classList.add('visible'); }), {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>
