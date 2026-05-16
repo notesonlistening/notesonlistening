@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What happens to your brain — Notes on Listening</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#EDE3D0;--creme2:#F7F0E3;--peche:#EAB48E;--terra:#C4614A;--or:#C9963A;--bordeaux:#6B2D3A;--caramel:#7A4E2D;--brun:#2E1A0E}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--creme);color:var(--brun);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--terra);z-index:1000;transition:width .1s linear}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:var(--bordeaux);border-bottom:1px solid rgba(237,227,208,.08);transition:background .5s,border-color .5s}
+nav.light{background:var(--creme);border-bottom-color:rgba(46,26,14,.1)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:15px;color:var(--creme);text-decoration:none;transition:color .3s}
+.nav-logo em{font-style:italic;color:var(--peche);transition:color .3s}
+nav.light .nav-logo{color:var(--brun)}
+nav.light .nav-logo em{color:var(--bordeaux)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--creme);text-decoration:none;opacity:.6;transition:opacity .2s,color .3s}
+nav.light .nav-links a{color:var(--brun)}
+.nav-links a:hover{opacity:1}
+.nav-back{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--peche);text-decoration:none;border-bottom:1px solid rgba(234,180,142,.3);padding-bottom:2px;opacity:.8;transition:color .3s,border-color .3s}
+nav.light .nav-back{color:var(--terra);border-color:rgba(196,97,74,.3)}
+
+/* ARTICLE HERO */
+.article-hero{min-height:85vh;background:var(--bordeaux);display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 80px;position:relative;overflow:hidden}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.07;pointer-events:none;mix-blend-mode:overlay}
+.hero-bg-text{position:absolute;top:60px;right:48px;font-family:'Playfair Display',serif;font-size:180px;font-weight:700;color:var(--creme);opacity:.03;line-height:1;pointer-events:none;letter-spacing:-4px}
+/* Waveform décorative */
+.hero-wave{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);opacity:.05;pointer-events:none}
+.article-hero-inner{max-width:760px;position:relative;z-index:2}
+.hero-meta{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+.hero-rubrique{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--peche);opacity:.7}
+.hero-dot{width:3px;height:3px;border-radius:50%;background:var(--peche);opacity:.4}
+.hero-issue{font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--peche);opacity:.4}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,60px);font-weight:500;color:var(--creme);line-height:1.1;margin-bottom:32px}
+.hero-title em{font-style:italic;color:var(--peche)}
+.hero-subtitle{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--peche);opacity:.55;margin-bottom:20px}
+.hero-intro{font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:rgba(237,227,208,.65);line-height:1.6;max-width:600px;border-left:2px solid var(--terra);padding-left:24px}
+
+/* ARTICLE BODY */
+.article-body{max-width:1100px;margin:0 auto;padding:80px 48px;display:grid;grid-template-columns:1fr 280px;gap:80px;align-items:start}
+.article-text{}
+
+/* Drop cap */
+.article-text .drop-cap::first-letter{font-family:'Playfair Display',serif;font-size:72px;line-height:.8;float:left;margin-right:10px;margin-top:8px;color:var(--bordeaux);font-style:italic}
+
+.article-text p{font-size:16px;font-weight:300;line-height:1.9;color:var(--caramel);margin-bottom:22px}
+.article-text p.lead{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--bordeaux);line-height:1.65;margin-bottom:28px;opacity:.9}
+
+/* Section break */
+.wave-sep{display:flex;align-items:center;gap:20px;margin:52px 0}.wave-sep::before,.wave-sep::after{content:"";flex:1;height:1px;background:rgba(46,26,14,.1)}.wave-sep span{width:4px;height:4px;border-radius:50%;background:var(--terra);opacity:.35;flex-shrink:0}
+
+/* INLINE PULL QUOTES */
+.inline-quote{margin:44px -20px;padding:0 20px;text-align:center}
+.inline-quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:30px;color:var(--bordeaux);line-height:1.3;max-width:560px;margin:0 auto}
+.inline-quote.inline-quote-terra p{color:var(--terra)}
+.inline-quote::before{content:"";display:block;width:30px;height:1px;background:var(--terra);opacity:.3;margin:0 auto 24px}
+.inline-quote::after{content:"";display:block;width:30px;height:1px;background:var(--terra);opacity:.3;margin:24px auto 0}
+
+/* ASIDE */
+.article-aside{position:sticky;top:100px;display:flex;flex-direction:column;gap:24px}
+
+/* Pull quote */
+.pull-quote{background:var(--bordeaux);padding:28px 24px;position:relative}
+.pull-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:80px;color:var(--peche);opacity:.15;position:absolute;top:-10px;left:16px;line-height:1}
+.pull-quote-text{font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--creme);line-height:1.5;position:relative;z-index:1}
+.pull-quote-text.terra{color:var(--creme)}
+
+.pull-quote.terra-bg{background:var(--terra)}
+.pull-quote.or-bg{background:var(--or)}
+.pull-quote.or-bg .pull-quote-text{color:var(--brun)}
+.pull-quote.or-bg::before{color:var(--brun)}
+
+/* Science box */
+.science-box{border:1px solid rgba(46,26,14,.1);padding:24px}
+.science-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);opacity:.7;margin-bottom:12px}
+.science-text{font-size:12px;font-weight:300;line-height:1.75;color:var(--caramel)}
+.science-source{font-size:10px;color:var(--caramel);opacity:.45;margin-top:12px;font-style:italic}
+
+/* Sources */
+.article-sources{max-width:1100px;margin:0 auto 80px;padding:0 48px 0 calc((1100px - 760px)/2 + 48px)}
+.sources-label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel);opacity:.4;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(46,26,14,.08)}
+.source-item{font-size:11px;font-weight:300;line-height:1.7;color:var(--caramel);opacity:.6;margin-bottom:8px}
+
+/* PS */
+.article-ps{max-width:760px;margin:0 auto 80px;padding:0 48px}
+.ps-text{font-size:13px;font-style:italic;color:var(--caramel);opacity:.6;padding-top:32px;border-top:1px solid rgba(46,26,14,.08)}
+
+/* NEXT */
+.next-section{background:var(--terra);padding:80px 48px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;overflow:hidden}
+.next-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.07;pointer-events:none;mix-blend-mode:overlay}
+.next-label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--creme);opacity:.5;margin-bottom:16px;position:relative}
+.next-title{font-family:'Playfair Display',serif;font-style:italic;font-size:32px;color:var(--creme);line-height:1.2;position:relative}
+.next-right{position:relative;display:flex;flex-direction:column;gap:16px}
+.next-desc{font-size:14px;font-weight:300;color:var(--creme);opacity:.6;line-height:1.7}
+.next-cta{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--creme);text-decoration:none;border-bottom:1px solid rgba(237,227,208,.3);padding-bottom:3px;width:fit-content;transition:border-color .2s}
+.next-cta:hover{border-color:rgba(237,227,208,.8)}
+
+/* FADE IN */
+.fade{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .article-body{grid-template-columns:1fr;gap:0;padding:48px 24px}
+  .article-aside{position:static;flex-direction:row;flex-wrap:wrap}
+  .article-hero{padding:100px 24px 60px}
+  .next-section{grid-template-columns:1fr;padding:60px 24px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo"><em>Notes on</em> LISTENING</a>
+  <ul class="nav-links">
+    <li><a href="#">Issue 00</a></li>
+    <li><a href="#">Articles</a></li>
+    <li><a href="#">Deep Cuts</a></li>
+  </ul>
+  <a href="#" class="nav-back">← Issue 00</a>
+</nav>
+
+<!-- HERO -->
+<section class="article-hero">
+  <div class="hero-grain"></div>
+  <div class="hero-bg-text">01</div>
+  <svg class="hero-wave" height="60" viewBox="0 0 1400 60" preserveAspectRatio="none" fill="none">
+    <path d="M0 30 Q35 8 70 30 Q105 52 140 30 Q175 8 210 30 Q245 52 280 30 Q315 8 350 30 Q385 52 420 30 Q455 8 490 30 Q525 52 560 30 Q595 8 630 30 Q665 52 700 30 Q735 8 770 30 Q805 52 840 30 Q875 8 910 30 Q945 52 980 30 Q1015 8 1050 30 Q1085 52 1120 30 Q1155 8 1190 30 Q1225 52 1260 30 Q1295 8 1330 30 Q1365 52 1400 30" stroke="#EDE3D0" stroke-width="1.5"/>
+  </svg>
+  <div class="article-hero-inner">
+    <div class="hero-meta">
+      <span class="hero-rubrique">Moved</span>
+      <div class="hero-dot"></div>
+      <span class="hero-issue">Issue 00 · The First Time</span><div class="hero-dot"></div><span class="hero-issue">6 min read</span>
+    </div>
+    <h1 class="hero-title">What happens to your brain when your <em>favourite artist</em> drops a new album</h1>
+    <p class="hero-subtitle">On waiting, wanting, and the chemistry of joy.</p>
+    <p class="hero-intro">"I wasn't supposed to listen to it there. I was at my sister's. The album had just dropped and I couldn't wait — not even long enough to get home."</p>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="article-body">
+  <div class="article-text">
+
+    <p class="drop-cap fade">I was at my sister's. The album had just dropped and I couldn't wait, not even long enough to get home, not even long enough to have both earbuds in. I put it on in the background, half-distracted, half-present. Not how you're supposed to hear something you've been waiting for. But I was too impatient. And honestly, I was glad to share it with her, it was the first time I had ever listened to a new album this way, with someone else, in real time.</p>
+
+    <p class="fade">I knew from the first few minutes that I was going to love it. But I couldn't give it what it deserved. Not there, not like that.</p>
+
+    <p class="fade">So I went home. And I put it on properly, headphones, volume up, nothing else. And something happened. I danced for hours. While cooking, while cleaning, while doing absolutely nothing. I sent voice messages at midnight to share my joy. I was even lying in bed, headphones in, ready to go to sleep, but still blasting the album. I couldn't stop listening. That's how happy it made me.</p>
+
+    <p class="fade">It was the first time a new album from a favourite artist had moved me so completely. And somewhere in the middle of all that dancing, I started wondering — what is actually happening right now? Why is music making me this happy? Why this specific music?</p>
+
+    <p class="fade">I was already thinking about the next morning. About pressing play again, from the beginning. That thought alone made me euphoric. It felt like a chemical reaction. And I wanted to know what it was. So I started looking it up. And what I found surprised me.</p>
+
+    <div class="wave-sep fade"><span></span></div>
+
+    <p class="fade">What I found is that anticipating music activates the same reward circuit in the brain as basic needs, and, as it turns out, cocaine and amphetamines.</p>
+
+    <p class="fade">I was not expecting that. That something this abstract, like sound, rhythm, anticipation, could trigger something this primal. The same circuit as hunger. The same circuit as cocaine.</p>
+
+    <p class="fade">The pleasure of listening is warm, immediate. It arrives and then it ends. The anticipation is different, it's restless. You want something you don't have yet. It almost aches. And I was, indeed, aching to listen to it.</p>
+
+    <p class="fade">I discovered in a research by Valorie Salimpoor that the brain releases dopamine in two distinct waves when we listen to music we love. The first wave happens during the anticipation of an emotionally intense passage, the second one when it arrives. Two separate anatomical pathways. Two separate floods of dopamine.</p>
+
+    <p class="fade">So I wasn't just excited. My brain was chemically rewarding me for wanting something I didn't have yet.</p>
+
+    <div class="wave-sep fade"><span></span></div>
+
+    <p class="fade">But the anticipation didn't end when the album started. It just changed scale. Every time a new track began, there was that split second of not knowing. A familiar voice, a universe I already loved, but this song, I had never heard. That tension between the known and the unknown is where the brain goes into overdrive.</p>
+
+    <p class="fade">I was impatient through the whole thing. Not because I wasn't enjoying it, because I wanted more of it before it was gone.</p>
+
+    <div class="wave-sep fade"><span></span></div>
+
+    <p class="fade">There's something else at play here. It wasn't just any album. It was this artist. His album.</p>
+
+    <p class="fade">I've been listening to him for about five years. He didn't come into my life gradually, I knew who he was, but I wasn't really listening. Then one day, an Instagram video. An algorithm. A moment in my life where I had just come out of something difficult and was finding my footing again thanks to a new city, new friends, a new version of myself. And suddenly I couldn't stop.</p>
+
+    <p class="fade">That certainty is not just emotional. It's neurological. When you've spent years with an artist, your brain doesn't just enjoy the music. It learns, and not everyone's brain learns the same way. The intensity of this response varies from person to person, which means if you've ever watched someone cry at a concert while you felt nothing, you weren't doing it wrong, you are just wired differently.</p>
+
+    <p class="fade">For those whose brains do build these circuits, a favourite artist isn't just a preference. It's a promise.</p>
+
+    <blockquote class="inline-quote fade">
+      <p>"A favourite artist isn't just a preference. It's a promise."</p>
+    </blockquote>
+
+    <p class="fade">Which is also why the disappointment can be so devastating when it doesn't deliver. When a predicted reward doesn't arrive, dopamine doesn't just stay flat. It drops. The bigger the expectation, the bigger the fall. This is why fans react so strongly when a favourite artist changes direction. It's not conservatism or ingratitude. It's a brain that built a very precise prediction, and received something it didn't anticipate. The disappointment is chemical.</p>
+
+    <div class="wave-sep fade"><span></span></div>
+
+    <p class="fade">There's a moment when the happiness becomes too big to keep to yourself. The dancing was mine. Personal and private, alone in my room, moving to music no one else could hear. But at some point even that wasn't enough. I needed to tell someone.</p>
+
+    <p class="fade">That's what sharing happiness is, I think. It's not about validation. It's not about converting anyone. It's just that joy, at a certain intensity, needs a witness. And research backs this up — sharing a positive experience with someone you love doesn't just feel good. It reactivates the experience neurologically. You don't just remember the joy. You relive it.</p>
+
+    <blockquote class="inline-quote inline-quote-terra fade">
+      <p>"Joy, at a certain intensity, needs a witness."</p>
+    </blockquote>
+
+    <p class="fade">The dopamine hit didn't stop when the album ended. My brain was looking for new ways to feel it or extend it. Just a few minutes longer.</p>
+
+    <div class="wave-sep fade"><span></span></div>
+
+    <p class="fade">But here's what I didn't think about at the time. The anticipation I felt didn't start the night the album dropped. It started weeks before. A first single. Then silence. Then a tracklist, just titles, no music. A cover, a world tour announced before the album. A release date circled on a calendar. Each of these moments was a controlled dopamine release. Not accidental. Designed.</p>
+
+    <p class="fade">The music industry uses this mechanism, whether consciously or not. The rollout of an album is not just promotion. It's a carefully engineered sequence of dopamine triggers, each one building on the last.</p>
+
+    <p class="fade">I'm not saying this to be cynical. The joy I felt that night was real. But it was also, in part, constructed. Weeks of deliberate anticipation poured into a single night of listening. Does knowing this change anything? Honestly, I don't think so. The joy was real and worth it. But I can't listen to an album rollout the same way anymore. And I think that's okay.</p>
+
+    <div class="wave-sep fade"><span></span></div>
+
+    <p class="lead fade">I didn't know any of this that night. I was just dancing.</p>
+
+    <p class="fade">Headphones in, volume up, somewhere between the kitchen and the bedroom, moving to music I had waited weeks for and would listen to hundreds of times more. I didn't know about dopamine prediction circuits or engineered rollouts. I just knew that something was happening to me, and that it felt important.</p>
+
+    <p class="fade">And I think when you understand why something moves you, it doesn't move you less. It moves you differently. And that's worth paying attention to.</p>
+
+  </div>
+
+  <!-- ASIDE -->
+  <aside class="article-aside">
+
+    <div class="science-box fade">
+      <p class="science-label">The science</p>
+      <p class="science-text">Dopamine is released in two distinct waves when we listen to music we love — first in anticipation of an intense passage, then when it arrives.</p>
+      <p class="science-source">Salimpoor et al., Nature Neuroscience, 2011</p>
+    </div>
+
+    <div class="science-box fade">
+      <p class="science-label">Did you know</p>
+      <p class="science-text">The same reward circuit activated by music anticipation is also triggered by cocaine and amphetamines — and basic human needs like food and water.</p>
+    </div>
+
+    <div class="science-box fade">
+      <p class="science-label">About the researcher</p>
+      <p class="science-text">Valorie Salimpoor is a neuroscientist whose 2011 study in Nature Neuroscience was the first to show that music triggers dopamine release in the brain's reward circuits.</p>
+      <p class="science-source">McGill University</p>
+    </div>
+
+  </aside>
+</div>
+
+<!-- PS -->
+<div class="article-ps fade">
+  <p class="ps-text">P.S. The album was Kiss Me All the Time, Disco Occasionally. My sister has heard about it approximately forty times since. That's the least to say.</p>
+</div>
+
+<!-- SOURCES -->
+<div class="article-sources fade">
+  <p class="sources-label">Sources</p>
+  <p class="source-item">Salimpoor, V.N. et al. (2011). Anatomically distinct dopamine release during anticipation and experience of peak emotion to music. <em>Nature Neuroscience.</em></p>
+  <p class="source-item">Schultz, W. (1998). Predictive reward signal of dopamine neurons. <em>Journal of Neurophysiology.</em></p>
+  <p class="source-item">Huron, D. (2006). <em>Sweet Anticipation: Music and the Psychology of Expectation.</em> MIT Press.</p>
+</div>
+
+<!-- NEXT -->
+<section class="next-section">
+  <div class="next-grain"></div>
+  <div>
+    <p class="next-label">Deep Cut · Issue 00</p>
+    <h2 class="next-title">Why the wait feels better than the thing itself</h2>
+  </div>
+  <div class="next-right">
+    <p class="next-desc">The paradox at the heart of anticipation — and why the moment something arrives, the feeling begins to fade.</p>
+    <a href="#" class="next-cta">Read the Deep Cut →</a>
+  </div>
+</section>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress-bar').style.width=p+'%';
+  // Switch to light nav once past the hero
+  document.getElementById('navbar').classList.toggle('light',h.scrollTop>window.innerHeight*.85);
+});
+
+// Fade in
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
