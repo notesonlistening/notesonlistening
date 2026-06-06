@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:...&display=swap" />
+  <title>Explore — Notes on LISTENING</title>
+  <meta name="description" content="Browse all articles by category. Notes on Listening." />
+  <!-- ─── Favicon ──────────────────────────────── -->
+  <link rel="icon" type="image/png" href="assets/logosolo-creme.png" />
+  <link rel="apple-touch-icon" href="assets/logosolo-creme.png" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <style>
+    /* ══════════════════════════════════════════════════════════
+       PAGE
+    ══════════════════════════════════════════════════════════ */
+    .explore-page {
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════════════════ */
+    .explore-header {
+      padding: clamp(48px, 7vh, 80px) var(--px) clamp(28px, 3.5vh, 44px);
+      border-bottom: 0.5px solid rgba(30,38,32,0.12);
+    }
+
+    .explore-eyebrow {
+      font-family: var(--f-body);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.30;
+      margin-bottom: 8px;
+    }
+
+    .explore-title {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(44px, 7vw, 80px);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .explore-count {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.28;
+      margin-top: 25px;
+      margin-bottom: 12px;
+
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FILTERS — commentés, activer quand + d'articles
+    ══════════════════════════════════════════════════════════ */
+    /*
+    .explore-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .filter-pill {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .filter-pill--active {
+      background: var(--ink);
+      color: var(--creme);
+    }
+    .filter-pill--inactive {
+      border: 0.5px solid rgba(30,38,32,0.18);
+      color: var(--ink);
+      opacity: 0.55;
+    }
+    .filter-pill--inactive:hover { opacity: 1; }
+    */
+
+    /* ══════════════════════════════════════════════════════════
+       CORPS
+    ══════════════════════════════════════════════════════════ */
+    .explore-body {
+      padding: 0 var(--px) clamp(64px, 9vh, 110px);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       CATÉGORIE — header
+    ══════════════════════════════════════════════════════════ */
+    .cat-block {
+      padding-top: clamp(28px, 4vh, 44px);
+      border-bottom: 0.5px solid rgba(30,38,32,0.07);
+      padding-bottom: clamp(20px, 3vh, 32px);
+    }
+
+    /* Catégorie sans articles — même structure, opacité réduite */
+    .cat-block--empty {
+      opacity: 0.45;
+    }
+
+    .cat-head {
+      display: grid;
+      grid-template-columns: 2.5px 1fr auto;
+      gap: 0 14px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .cat-bar {
+      height: 100%;
+      min-height: 28px;
+      border-radius: 0;
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+
+    .cat-name {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      align-self: center;
+    }
+
+    .cat-desc {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.10em;
+      line-height: 1.65;
+      color: var(--ink);
+      opacity: 0.42;
+      max-width: 230px;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       TRACKLIST
+    ══════════════════════════════════════════════════════════ */
+    .track-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hover — tout s'efface sauf le track survolé */
+    .track-list:hover .track { opacity: 0.28; }
+    .track-list:hover .track:hover { opacity: 1; }
+    .track-list:hover .track--soon { opacity: 0.14; }
+
+    .track {
+      display: grid;
+      grid-template-columns: 28px minmax(0,1fr) auto;
+      gap: 0 14px;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 0.5px solid rgba(30,38,32,0.07);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.22s;
+    }
+
+    /* Track à venir — discret */
+    .track--soon {
+      opacity: 0.28;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .track-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      opacity: 0.65;
+      text-align: right;
+    }
+
+    .track-title {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(16px, 1.8vw, 20px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .track-meta {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      opacity: 0.40;
+      margin-top: 2px;
+    }
+
+    .track-dur {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      opacity: 0.28;
+      white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       THE ANGLE NOBODY TELLS — timeline
+    ══════════════════════════════════════════════════════════ */
+    .timeline-section {
+      border-top: 0.5px solid rgba(30,38,32,0.12);
+      padding: clamp(40px, 6vh, 72px) var(--px) clamp(80px, 11vh, 130px);
+    }
+
+    .timeline-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--bordeaux);
+      opacity: 0.65;
+      margin-bottom: 6px;
+    }
+
+    .timeline-intro {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(20px, 2.8vw, 32px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: clamp(32px, 5vh, 56px);
+    }
+
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hover — même logique que tracklist */
+    .timeline-list:hover .timeline-item { opacity: 0.28; }
+    .timeline-list:hover .timeline-item:hover { opacity: 1; }
+    .timeline-list:hover .timeline-item--soon { opacity: 0.12; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: clamp(72px, 10vw, 100px) 1fr;
+      align-items: stretch;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.22s;
+    }
+
+    .timeline-item--soon {
+      opacity: 0.30;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* Colonne gauche : année */
+    .timeline-year-col {
+      padding-right: 20px;
+      padding-top: 2px;
+      padding-bottom: 32px;
+      border-right: 0.5px solid rgba(107,45,58,0.28);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .timeline-year {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(30px, 4.5vw, 48px);
+      line-height: 0.82;
+      letter-spacing: -0.04em;
+      color: var(--bordeaux);
+    }
+
+    .timeline-issue {
+      font-family: var(--f-mono);
+      font-size: 8px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.30;
+    }
+
+    /* Colonne droite : contenu */
+    .timeline-content {
+      padding-left: 20px;
+      padding-top: 2px;
+      padding-bottom: 32px;
+    }
+
+    .timeline-artist {
+      font-family: var(--f-mono);
+      font-size: 8px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--bordeaux);
+      opacity: 0.55;
+      margin-bottom: 5px;
+    }
+
+    .timeline-title {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(15px, 1.7vw, 20px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .timeline-hook {
+      font-family: var(--f-body);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(13px, 1.1vw, 15px);
+      line-height: 1.45;
+      color: var(--ink);
+      opacity: 0.42;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .nav {
+        grid-template-columns: 1fr auto !important;
+      }
+      .nav-centre { display: none !important; }
+      .nav-links  { display: none !important; }
+      .nav-menu-btn { display: block !important; }
+    }
+
+    @media (max-width: 680px) {
+      .cat-head {
+        grid-template-columns: 2.5px 1fr;
+        gap: 0 12px;
+      }
+      .cat-desc { display: none; }
+
+      .track-dur { display: none; }
+
+      .timeline-item {
+        grid-template-columns: clamp(60px, 18vw, 80px) 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="read-progress" id="read-progress"></div>
+
+<!-- ════════════════════════════════════════
+     NAV
+════════════════════════════════════════ -->
+<nav class="nav nav-top" id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logosans-wordmark-creme.svg" alt="Notes on LISTENING" />
+    <div class="nav-wordmark">
+      <span class="logo-notes">Notes on</span>
+      <span class="logo-listening">LISTENING</span>
+    </div>
+  </a>
+
+  <div class="nav-centre" id="nav-centre">
+   <span class="nav-issue-label" id="nav-issue-label"></span>
+  </div>
+
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="index.html">Issues</a></li>
+      <li><a href="explore.html" style="opacity:0.5; pointer-events:none;">Explore</a></li>      
+      <li><a href="about.html">About</a></li>
+    </ul>
+
+    <!-- Bouton MENU mobile -->
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span class="nav-menu-label">MENU</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Panneau plein écran mobile -->
+<div class="nav-panel" id="nav-panel" aria-hidden="true">
+  <div class="nav-panel-inner">
+    <button class="nav-panel-close" id="nav-panel-close" aria-label="Fermer le menu">CLOSE</button>
+    <nav class="nav-panel-toc">
+      <a href="index.html" class="nav-panel-item">Issues</a>
+      <a href="explore.html"class="nav-panel-item">Explore</a>
+      <a href="about.html" class="nav-panel-item">About</a>
+    </nav>
+    <p class="nav-panel-meta">Notes on LISTENING · Issue 00</p>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE
+════════════════════════════════════════ -->
+<div class="explore-page">
+
+  <!-- HEADER -->
+  <div class="explore-header reveal">
+    <h1 class="explore-title">Explore</h1>
+    <div class="explore-count">6 categories · 2 articles</div>
+
+    <!-- FILTERS — décommenter quand + d'articles
+    <div class="explore-filters">
+      <span class="filter-pill filter-pill--active">All</span>
+      <span class="filter-pill filter-pill--inactive" style="color:var(--cat-moved);">Moved</span>
+      <span class="filter-pill filter-pill--inactive" style="color:var(--cat-brain);">Your Brain on Music</span>
+      <span class="filter-pill filter-pill--inactive" style="color:var(--cat-never);">Never Met</span>
+      <span class="filter-pill filter-pill--inactive" style="color:var(--cat-self);">Sound of Self</span>
+      <span class="filter-pill filter-pill--inactive" style="color:var(--cat-pit);">The Pit</span>
+      <span class="filter-pill filter-pill--inactive" style="color:var(--cat-record);">Off Record</span>
+    </div>
+    -->
+  </div>
+
+  <!-- CORPS -->
+  <div class="explore-body">
+
+    <!-- ── MOVED ───────────────────────────────────── -->
+    <div class="cat-block reveal">
+      <div class="cat-head">
+        <div class="cat-bar" style="background:var(--cat-moved);"></div>
+        <div class="cat-name" style="color: var(--cat-moved);">Moved</div>
+        <div class="cat-desc">The emotional side of music. Why a chord can undo you. What grief sounds like. How joy moves through the body.</div>
+      </div>
+      <div class="track-list">
+        <a class="track" href="index.html#essay">
+          <span class="track-num" style="color:var(--cat-moved);">01</span>
+          <div>
+            <div class="track-title">A promise</div>
+            <div class="track-meta">Essay · Issue 00</div>
+          </div>
+          <span class="track-dur">8 min</span>
+        </a>
+        <div class="track track--soon">
+          <span class="track-num" style="color:var(--cat-moved);">02</span>
+          <div>
+            <div class="track-title">—</div>
+            <div class="track-meta">Essay · Issue 01 · Coming soon</div>
+          </div>
+          <span class="track-dur">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── YOUR BRAIN ON MUSIC ────────────────────── -->
+    <div class="cat-block reveal">
+      <div class="cat-head">
+        <div class="cat-bar" style="background:var(--cat-brain);"></div>
+        <div class="cat-name" style="color: var(--cat-brain);">Your Brain on Music</div>
+        <div class="cat-desc">Frisson, involuntary memory, neurodivergence, therapeutic sounds. Science, never cold.</div>
+      </div>
+      <div class="track-list">
+        <a class="track" href="index.html#deepcut">
+          <span class="track-num" style="color:var(--cat-brain);">01</span>
+          <div>
+            <div class="track-title">It hadn't got a past</div>
+            <div class="track-meta">Deep Cut · Issue 00</div>
+          </div>
+          <span class="track-dur">4 min</span>
+        </a>
+        <div class="track track--soon">
+          <span class="track-num" style="color:var(--cat-brain);">02</span>
+          <div>
+            <div class="track-title">—</div>
+            <div class="track-meta">Deep Cut · Issue 01 · Coming soon</div>
+          </div>
+          <span class="track-dur">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NEVER MET — vide ───────────────────────── -->
+    <div class="cat-block cat-block--empty reveal">
+      <div class="cat-head">
+        <div class="cat-bar" style="background:var(--cat-never);"></div>
+        <div class="cat-name" style="color: var(--cat-never);">Never Met</div>
+        <div class="cat-desc">Knowing someone without knowing them. The admiration, the attachment, the projection. Why we give so much to people who don't know we exist, and what they give back.</div>
+      </div>
+    </div>
+
+    <!-- ── THE PIT — vide ─────────────────────────── -->
+    <div class="cat-block cat-block--empty reveal">
+      <div class="cat-head">
+        <div class="cat-bar" style="background:var(--cat-pit);"></div>
+        <div class="cat-name" style="color: var(--cat-pit);">The Pit</div>
+        <div class="cat-desc">Fandoms as safe spaces. The bond between strangers who share a passion. The loyalty, the belonging, and the wars.</div>
+      </div>
+    </div>
+
+    <!-- ── SOUND OF SELF — vide ───────────────────── -->
+    <div class="cat-block cat-block--empty reveal">
+      <div class="cat-head">
+        <div class="cat-bar" style="background:var(--cat-self);"></div>
+        <div class="cat-name" style="color: var(--cat-self);">Sound of Self</div>
+        <div class="cat-desc">What our musical taste says about us. Guilty pleasures, identity, and the artists who help us figure out who we are.</div>
+      </div>
+    </div>
+
+    <!-- ── OFF RECORD — vide ──────────────────────── -->
+    <div class="cat-block cat-block--empty reveal" style="border-bottom:none;">
+      <div class="cat-head">
+        <div class="cat-bar" style="background:var(--cat-record);"></div>
+        <div class="cat-name" style="color: var(--cat-record);">Off Record</div>
+        <div class="cat-desc">Artists writing from their darkest places. What they choose to show, what they keep back, and what leaks through anyway.</div>
+      </div>
+    </div>
+
+  </div><!-- /.explore-body -->
+
+
+  <!-- ════════════════════════════════════════
+       THE ANGLE NOBODY TELLS — timeline chronologique
+  ════════════════════════════════════════ -->
+  <div class="timeline-section">
+
+    <div class="reveal">
+      <div class="timeline-eyebrow">A year. One story.</div>
+      <div class="timeline-intro"><br>The angle nobody tells.</div>
+    </div>
+
+    <div class="timeline-list">
+
+      <!-- 1963 — coming soon (ordre chronologique : avant 1977) -->
+      <div class="timeline-item timeline-item--soon reveal">
+        <div class="timeline-year-col">
+          <div class="timeline-year">1963</div>
+          <div class="timeline-issue">Issue 01</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-artist">Beatlemania</div>
+          <div class="timeline-title">Coming soon</div>
+          <div class="timeline-hook">The journalists and psychiatrists who were wrong about everything.</div>
+        </div>
+      </div>
+
+      <!-- 1977 — publié -->
+      <a class="timeline-item reveal d1" href="index.html#s1977">
+        <div class="timeline-year-col">
+          <div class="timeline-year">1977</div>
+          <div class="timeline-issue">Issue 00</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-artist">Fleetwood Mac</div>
+          <div class="timeline-title">The invisible founder of Rumours</div>
+          <div class="timeline-hook">His name is on everything. Nobody says it.</div>
+        </div>
+      </a>
+
+    </div><!-- /.timeline-list -->
+
+  </div><!-- /.timeline-section -->
+
+</div><!-- /.explore-page -->
+
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo-group">
+    <img class="footer-icon"
+         src="assets/logosans-wordmark-creme.svg"
+         alt="Notes on Listening" />
+    <div class="footer-wordmark">
+      <span class="footer-notes">Notes on</span>
+      <span class="footer-listening">Listening</span>
+    </div>
+  </div>
+  <p class="footer-tagline">The music doesn't change. You do.</p>
+  <p class="footer-meta">2026</p>
+</footer>
+
+
+<!-- ════════════════════════════════════════
+     JS
+════════════════════════════════════════ -->
+<script>
+  const nav     = document.getElementById('nav');
+  const backTop = document.getElementById('back-top');
+  const docEl   = document.documentElement;
+
+
+function updateNav() {
+  const y = window.scrollY;
+
+  if (y < 30) {
+    nav.classList.add('nav-top');
+    nav.classList.remove('nav-visible');
+  } else {
+    nav.classList.remove('nav-top');
+    nav.classList.add('nav-visible');
+  }
+}
+
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  /* Reveal on scroll */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Menu mobile */
+  const menuBtn   = document.getElementById('nav-menu-btn');
+  const menuPanel = document.getElementById('nav-panel');
+  const closeBtn  = document.getElementById('nav-panel-close');
+
+  function openMenu() {
+    menuPanel.classList.add('is-open');
+    menuPanel.setAttribute('aria-hidden', 'false');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    menuPanel.classList.remove('is-open');
+    menuPanel.setAttribute('aria-hidden', 'true');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  menuPanel.querySelectorAll('.nav-panel-item, .nav-panel-item--small').forEach(l => {
+    l.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+
+</body>
+</html>

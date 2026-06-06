@@ -1,0 +1,78 @@
+/* ============================================================
+   NOTES ON LISTENING — nav.css
+   ============================================================ */
+
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.5s var(--ease-out), backdrop-filter 0.5s;
+}
+
+.site-nav.scrolled {
+  background: rgba(237, 227, 208, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(61, 21, 32, 0.10);
+}
+
+/* ── LOGO ────────────────────────────────────────────────── */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.2s;
+}
+.nav-logo:hover { opacity: 0.65; }
+.nav-logo img, .nav-logo svg { height: 28px; width: auto; }
+
+/* Fallback si pas encore de SVG */
+.nav-logo-fallback {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.nav-logo-fallback em {
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* ── LINKS ───────────────────────────────────────────────── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3.5vw, 52px);
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.55;
+  position: relative;
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--terra);
+  transition: width 0.35s var(--ease-out);
+}
+
+.nav-links a:hover { opacity: 1; }
+.nav-links a:hover::after { width: 100%; }

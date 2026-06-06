@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Notes on LISTENING</title>
+  <link rel="icon" type="image/png" href="assets/logosolo-creme.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,700;1,9..144,900&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--creme);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: clamp(40px, 8vw, 96px);
+      text-align: center;
+    }
+    :root {
+      --creme:      #EDE3D0;
+      --vert-encre: #1E3028;
+      --terra:      #C4614A;
+      --ink:        #1E2620;
+    }
+
+    .four04-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(20px, 3vh, 32px);
+    }
+
+    .four04-num {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: clamp(14px, 1.2vw, 16px);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      opacity: 0.28;
+    }
+
+    .four04-rule {
+      width: 48px;
+      height: 0.5px;
+      background: var(--ink);
+      opacity: 0.15;
+    }
+
+    .four04-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.32;
+    }
+
+    .four04-message {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(22px, 3.5vw, 34px);
+      line-height: 1.3;
+      color: var(--ink);
+      opacity: 0.72;
+      max-width: 480px;
+    }
+
+    .four04-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terra);
+      text-decoration: none;
+      opacity: 0.75;
+      position: relative;
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .four04-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 0.5px;
+      background: var(--terra);
+      transition: width 0.35s ease-out;
+    }
+    .four04-link:hover { opacity: 1; }
+    .four04-link:hover::after { width: 100%; }
+
+    .four04-wordmark {
+      position: fixed;
+      bottom: clamp(24px, 4vh, 40px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      white-space: nowrap;
+    }
+    .four04-wordmark span:first-child {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 11px;
+      color: var(--ink);
+      opacity: 0.25;
+      letter-spacing: 0.04em;
+    }
+    .four04-wordmark span:last-child {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.25;
+    }
+  </style>
+</head>
+<body>
+
+<div class="four04-inner">  
+  <div class="four04-rule"></div>
+  <p class="four04-label">Page not found</p>
+  <p class="four04-message">Some silences are just silences.</p>
+  <a href="/" class="four04-link">Back to the music</a>
+  <div class="four04-rule"></div>
+    <span class="four04-num">404</span>
+
+</div>
+
+  <div class="four04-wordmark">
+    <span>Notes on</span>
+    <span>LISTENING</span>
+  </div>
+
+</body>
+</html>

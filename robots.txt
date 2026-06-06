@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /essay/
+Disallow: /deep-cut/
+Disallow: /1977/
+Disallow: /the-question/
+Disallow: /playlist/
+Disallow: /issues/
+
+Sitemap: https://notesonlistening.com/sitemap.xml

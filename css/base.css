@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700;1,9..144,900&family=DM+Mono:wght@300;400;500&display=swap');
+
+/* ─── TOKENS ──────────────────────────────────────────────── */
+:root {
+  /* Fonds */
+  --creme:         #EDE3D0;
+  --vert-encre:    #1E3028;
+  --bordeaux-prof: #3D1520;
+
+  /* Accents rubriques */
+  --terra:  #C4614A;   /* Essay, Playlist, numéros sur crème */
+  --or:     #C9963A;   /* Deep Cut */
+  --peche:  #EAB48E;   /* Question (texte sur bordeaux) */
+  --bordeaux: #6B2D3A; /* 1977 */
+
+  /* Texte */
+  --ink:       #1E2620;  /* sur crème */
+  --ink-light: rgba(30,38,32,0.55);
+
+  /* Typo */
+  --f-body:  'Cormorant Garamond', Georgia, serif;
+  --f-title: 'Fraunces', Georgia, serif;
+  --f-mono:  'DM Mono', monospace;
+
+  /* Spacing */
+  --gap: clamp(40px, 6vw, 96px);
+  --px:  clamp(32px, 5.5vw, 88px);
+}
+
+/* ─── RESET ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--creme);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+ul, ol { list-style: none; }
+
+/* ─── SECTION HEADER PATTERN ──────────────────────────────── */
+/* Le "03  DEEP CUT ————" qui ouvre chaque section */
+/* Le numéro géant déborde à gauche hors du viewport */
+.s-header {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: clamp(48px, 7vh, 96px);
+  overflow: visible;
+}
+.s-num {
+  font-family: var(--f-title);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(50px, 9vw, 100px);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  /* Sort du viewport à gauche */
+  margin-left: calc(-1 * var(--px) - 0.3em);
+  flex-shrink: 0;
+}
+.s-rule-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  padding-bottom: 6px;
+}
+.s-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.38;
+}
+.s-rule {
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.12;
+}
+
+/* ─── REVEAL ──────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+              transform 0.75s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.10s; }
+.d2 { transition-delay: 0.22s; }
+.d3 { transition-delay: 0.36s; }
+
+/* ─── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--creme); }
+::-webkit-scrollbar-thumb { background: var(--terra); }
+::selection { background: rgba(196,97,74,0.25); }
+
+/* ─── TOKENS RUBRIQUES SUPPLÉMENTAIRES ───────────────────── */
+:root {
+  --bleu-parasocial: #3B6EA5;   /* Never Met */
+  --violet-self:     #6B3FA0;   /* Sound of Self */
+}
+
+/* ─── COULEURS CATÉGORIES — explore.html uniquement ─────── */
+/* Ne pas utiliser sur les pages d'issues.                   */
+/* Palette distincte des tokens de fond/accent ci-dessus.   */
+:root {
+  --cat-moved:   #C05870;   /* Moved */
+  --cat-brain:   #3878B8;   /* Your Brain on Music */
+  --cat-never:   #6C3898;   /* Never Met */
+  --cat-pit:     #A02828;   /* The Pit */
+  --cat-self:    #5C9E78;   /* Sound of Self */
+  --cat-record:  #3D2952;   /* Off Record */
+  --cat-angle:   #6B2D3A;   /* The Angle Nobody Tells */
+}
