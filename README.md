@@ -1,6 +1,5 @@
 # Notes on Listening — README projet
 
-> Colle ce fichier en début de session Claude avant de travailler sur le site.
 > Dernière mise à jour : session du 1 juin 2026 — tokens catégories, explore.html, refonte palette système
 
 ---
@@ -236,14 +235,3 @@ Le `05` déborde visuellement sur la section `s1977` du dessus :
 - **Les badges sont des `<a>`**, pas des `<span>` — toujours cliquables.
 
 ---
-
-## Comment travailler avec Claude
-
-**En début de session :** colle ce README + le fichier CSS ou HTML sur lequel tu travailles.
-
-**Demandes efficaces :**
-- ✅ "Voici mon `home.css` actuel. Je veux modifier uniquement le composant `.toc-item`."
-- ✅ "Voici `index.html`. Ajoute le badge après le titre de l'essay."
-- ❌ "Refais toute la homepage." (trop large — découpe en composants)
-
-**Par composant, pas par page.** Une modification ciblée = moins de régression = moins de reconstruction.
