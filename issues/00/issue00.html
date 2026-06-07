@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Redirect vers l'issue courante — mettre à jour a chaque nouvelle issue -->
-  <meta http-equiv="refresh" content="0; url=issues/00/issue00.html" />
-  <link rel="canonical" href="https://notesonlistening.com/issues/00/issue00.html" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:...&display=swap" />
 
   <!-- ─── SEO primaire ──────────────────────────── -->
@@ -31,16 +28,17 @@
   <meta name="twitter:image"       content="https://notesonlistening.com/assets/og-image-issue00.png" />
 
   <!-- ─── Canonical ────────────────────────────── -->
+  <link rel="canonical" href="https://notesonlistening.com/" />
 
   <!-- ─── Favicon ──────────────────────────────── -->
-  <link rel="icon" type="image/png" href="assets/logosolo-creme.png" />
-  <link rel="apple-touch-icon" href="assets/logosolo-creme.png" />
+  <link rel="icon" type="image/png" href="../../assets/logosolo-creme.png" />
+  <link rel="apple-touch-icon" href="../../assets/logosolo-creme.png" />
 
   <!-- ─── Fonts ────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="../../css/base.css" />
+  <link rel="stylesheet" href="../../css/home.css" />
 </head>
 <body>
 
@@ -50,11 +48,10 @@
 ════════════════════════════════════════ -->
 <!-- Barre de progression lecture -->
 <div class="read-progress" id="read-progress"></div>
-<div class="essay-progress" id="essay-progress"></div>
 
 <nav class="nav nav-top" id="nav">
   <a href="/" class="nav-logo">
-    <img src="assets/logosans-wordmark-creme.svg" alt="Notes on LISTENING" />
+    <img src="../../assets/logosans-wordmark-creme.svg" alt="Notes on LISTENING" />
     <div class="nav-wordmark">
       <span class="logo-notes">Notes on</span>
       <span class="logo-listening">LISTENING</span>
@@ -100,8 +97,8 @@
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#" class="nav-link-soon" tabindex="-1">Issues</a></li>
-      <li><a href="explore.html">Explore</a></li>
-      <li><a href="about.html">About</a></li>
+      <li><a href="../../explore.html">Explore</a></li>
+      <li><a href="../../about.html">About</a></li>
     </ul>
     <!-- Bouton MENU mobile -->
     <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
@@ -123,8 +120,8 @@
       <a href="#playlist" class="nav-panel-item" data-num="06">The Playlist</a>
       <div class="nav-panel-sep"></div>
       <a href="#" class="nav-panel-item--small" tabindex="-1">Issues</a>
-      <a href="explore.html" class="nav-panel-item--small">Explore</a>
-      <a href="about.html" class="nav-panel-item--small">About</a>
+      <a href="../../explore.html" class="nav-panel-item--small">Explore</a>
+      <a href="../../about.html" class="nav-panel-item--small">About</a>
     </nav>
     <p class="nav-panel-meta">Notes on LISTENING · Issue 00</p>
   </div>
@@ -149,7 +146,11 @@
 <section class="hero">
   <div class="hero-left">
     <div class="hero-top reveal">
-      <span class="hero-issue">ISSUE 00</span>
+<div class="hero-issue-row">
+  <span class="hero-issue">ISSUE 00</span>
+  <span class="hero-meta-sep">·</span>
+  <time datetime="2026-06">June 2026</time>
+</div>
       <h1 class="hero-title">
         The <span class="accent">First</span> Time
       </h1>
@@ -296,7 +297,7 @@
       <p>That's what sharing happiness is, I think. It's not about validation. It's not about converting anyone.</p>
     </div>
 
-    <p class="essay-pullquote essay-pullquote--witness reveal">
+    <p class="essay-body reveal">
       It's just that joy, at a certain intensity, needs a witness.
     </p>
 
@@ -414,19 +415,36 @@
   </div>
   <div class="section-inner">
     <div class="question-dark">
-      <h2 class="question-text reveal">
-        What's the song that made you realise <strong>music was doing something to you?</strong>
-      </h2>
-      <div class="question-answer reveal d1">
-        <p>"Maybe Ventolin by Aphex Twin. The ugly sustained squeal/drone and the distorted breaths were almost violent, but it still came across so beautiful." <span class="question-source"> Reddit user on r/askmusic</span></p>
-       
-      </div>
-<p class="question-cta reveal d2">When did you realise you were attached to someone who didn't know you existed?<br>
-<a href="https://instagram.com/notesonlistening" target="_blank" rel="noopener">Tell me — @notesonlistening</a></p>
-</div>
-  </div>
-</section>
+      <div class="question-layout">
 
+        <h2 class="question-text reveal">
+          What's the song that made you realise <strong>music was doing something to you?</strong>
+        </h2>
+
+        <div class="question-responses">
+          <div class="question-answer reveal d1">
+            <p>"Maybe Ventolin by Aphex Twin. The ugly sustained squeal/drone and the distorted breaths were almost violent, but it still came across so beautiful."</p>
+            <span class="question-source">Reddit · r/askmusic</span>
+          </div>
+
+          <div class="question-rule"></div>
+
+          <div class="question-answer reveal d2">
+            <p>"June 2nd 1967, my first time playing Sgt Pepper. Music was never the same after that one."</p>
+            <span class="question-source">Reddit · r/askmusic · age 15 at the time</span>
+          </div>
+        </div><!-- /.question-responses -->
+
+      </div><!-- /.question-layout -->
+
+      <p class="question-cta reveal" style="text-align:center; margin-top: clamp(48px, 6vh, 80px);">
+        When did you realise you were attached to someone who didn't know you existed?<br>
+        <a href="https://instagram.com/notesonlistening" target="_blank" rel="noopener">Tell me — @notesonlistening</a>
+      </p>
+
+    </div><!-- /.question-dark -->
+  </div><!-- /.section-inner -->
+</section>
 
 <!-- ════════════════════════════════════════
      06 PLAYLIST
@@ -543,7 +561,7 @@
 
   <div class="footer-logo-group">
     <img class="footer-icon" 
-         src="assets/logosans-wordmark-creme.svg" 
+         src="../../assets/logosans-wordmark-creme.svg" 
          alt="Notes on LISTENING" />
     <div class="footer-wordmark">
       <span class="footer-notes">Notes on</span>
@@ -561,13 +579,21 @@
 <script>
   const nav = document.getElementById('nav');
   const progress = document.getElementById('read-progress');
-  const essayProgress = document.getElementById('essay-progress');
   const backTop = document.getElementById('back-top');
   const docEl = document.documentElement;
 
-  // ── Temps de lecture estimé ────────────────────────────
-  const essayEl = document.querySelector('.essay-body') ||
-                  document.getElementById('essay');
+  // ── Read time essay ────────────────────────────────────
+  (function() {
+    const essayBody = document.querySelectorAll('.essay-body');
+    if (!essayBody.length) return;
+    let words = 0;
+    essayBody.forEach(el => {
+      words += (el.innerText || '').trim().split(/\s+/).length;
+    });
+    const mins = Math.ceil(words / 200);
+    const el = document.getElementById('essay-readtime');
+    if (el) el.textContent = mins + ' min read';
+  })();
 
   let lastY = 0;
 
@@ -588,24 +614,6 @@
     progress.style.width = pct + '%';
     progress.classList.toggle('visible', y > 100);
     backTop.classList.toggle('visible', pct > 40);
-
-    // Barre essay — visible et progressant uniquement dans la section essay
-    const essaySection = document.getElementById('essay');
-    const nextSection  = document.getElementById('deepcut');
-if (essaySection && nextSection && essayProgress) {
-  const start = essaySection.getBoundingClientRect().top + y;
-  const end   = nextSection.getBoundingClientRect().top + y;
-  const inEssay = y >= start - 80 && y < end;
-  if (inEssay) {
-    const essayPct = Math.min(100, Math.max(0, ((y - start + 80) / (end - start)) * 100));
-    essayProgress.style.width = essayPct + '%';
-    essayProgress.classList.add('visible');
-    progress.classList.remove('visible');     // ← ici, à l'intérieur du if (inEssay)
-  } else {
-    essayProgress.classList.remove('visible');
-    progress.classList.add('visible');        // ← ici, à l'intérieur du else
-  }
-}
 
     lastY = y;
   }
@@ -655,7 +663,6 @@ if (essaySection && nextSection && essayProgress) {
   const drawer      = document.getElementById('nav-drawer');
   const drawerItems = drawer.querySelectorAll('.nav-drawer-item');
 
-  // Sections ordonnées avec leur label d'affichage
   const sections = [
     { id: 'edito',    label: 'Editor\'s Note' },
     { id: 'essay',    label: 'Essay'          },
@@ -683,14 +690,11 @@ if (essaySection && nextSection && essayProgress) {
   function activatePill(sectionId) {
     const sec = sections.find(s => s.id === sectionId);
     if (!sec) return;
-
     currentSection = sectionId;
     pillName.textContent = sec.label;
     pill.dataset.section = sectionId;
     pill.classList.add('is-active');
     issueLabel.style.opacity = '0';
-
-    // Marquer l'item actif dans le drawer
     drawerItems.forEach(item => {
       item.classList.toggle('is-current', item.dataset.for === sectionId);
     });
@@ -703,10 +707,7 @@ if (essaySection && nextSection && essayProgress) {
     closeDrawer();
   }
 
-  // IntersectionObserver pour les sections
   const sectionEls = sections.map(s => document.getElementById(s.id)).filter(Boolean);
-
-  // On utilise une map pour savoir quelles sections sont visibles
   const visibleSections = new Set();
 
   const sectionObserver = new IntersectionObserver(entries => {
@@ -717,9 +718,6 @@ if (essaySection && nextSection && essayProgress) {
         visibleSections.delete(e.target.id);
       }
     });
-
-    // Trouver la section la plus haute dans le viewport
-    // (ordre dans sections[] = ordre dans le document)
     let active = null;
     for (const sec of sections) {
       if (visibleSections.has(sec.id)) {
@@ -727,12 +725,8 @@ if (essaySection && nextSection && essayProgress) {
         break;
       }
     }
-
-    if (active) {
-      activatePill(active);
-    } else {
-      deactivatePill();
-    }
+    if (active) activatePill(active);
+    else deactivatePill();
   }, {
     rootMargin: '-60px 0px -40% 0px',
     threshold: 0
@@ -740,29 +734,20 @@ if (essaySection && nextSection && essayProgress) {
 
   sectionEls.forEach(el => sectionObserver.observe(el));
 
-
-
-  // Pill : toggle drawer au clic
   pill.addEventListener('click', e => {
     e.stopPropagation();
     if (drawerOpen) closeDrawer(); else openDrawer();
   });
 
-  // Fermer drawer au clic ailleurs
   document.addEventListener('click', e => {
     if (drawerOpen && !drawer.contains(e.target) && e.target !== pill) {
       closeDrawer();
     }
   });
 
-  // Fermer drawer après navigation
   drawerItems.forEach(item => {
     item.addEventListener('click', () => {
       setTimeout(closeDrawer, 150);
     });
   });
 </script>
-
-
-</body>
-</html>

@@ -578,6 +578,14 @@ a.toc-item { display: grid; }
 
 }
 
+.essay-pullquote--witness {
+  color: var(--peche);
+  font-size: clamp(15px, 2vw, 25px);
+  max-width: 100%;
+  border: none;
+  padding: clamp(24px, 3vh, 36px) 0;
+}
+
 /* ══════════════════════════════════════════════════════════
    03 DEEP CUT
 ══════════════════════════════════════════════════════════ */
