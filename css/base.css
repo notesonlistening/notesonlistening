@@ -24,8 +24,7 @@
 
   /* Spacing */
   --gap: clamp(40px, 6vw, 96px);
-  --px:  clamp(32px, 5.5vw, 88px);
-}
+  --px:  clamp(32px, 5.5vw, 120px);}
 
 /* ─── RESET ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

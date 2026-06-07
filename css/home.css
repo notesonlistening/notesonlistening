@@ -215,6 +215,11 @@
   margin-bottom: 12px;
 }
 
+.hero-issue-row .hero-issue {
+  margin-bottom: 0;
+  opacity: 1;
+}
+
 .hero-title {
   font-family: var(--f-title);
   font-style: italic;
@@ -242,6 +247,21 @@
   color: var(--vert-encre);
   text-align: left;
 }
+
+.hero-issue-row {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.45;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+
 
 .hero-edito-text {
   padding-top: 0;
@@ -347,7 +367,7 @@ a.toc-item { display: grid; }
 
 .section-inner {
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-columns: 1fr 6fr 1fr;
   gap: 0 clamp(24px, 3vw, 48px);
 }
 
@@ -370,7 +390,7 @@ a.toc-item { display: grid; }
   font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.75;
   color: var(--creme);
-  max-width: 660px;
+  max-width: 760px;
 }
 .edito-dark-text p + p { margin-top: 1.4em; }
 .edito-title {
@@ -497,29 +517,18 @@ a.toc-item { display: grid; }
   opacity: 0.65;
   margin-bottom: clamp(24px, 3vh, 40px);
 }
-.essay-read-time {
-  font-family: var(--f-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0.32;
-  margin-bottom: clamp(20px, 2.5vh, 28px);
-}
 
-/* Barre de progression essay — sous la nav, visible uniquement dans l'essay */
-.essay-progress {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--terra);
-  z-index: 52;
-  opacity: 0;
-  transition: opacity 0.4s, width 0.1s linear;
-  pointer-events: none;
+.essay-readtime {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terra);
+  opacity: 0.55;
+  margin-top: 12px;
+  margin-bottom: clamp(20px, 1.5vh, 30px);
 }
-.essay-progress.visible { opacity: 1; }
 
 .essay-question {
   font-family: var(--f-body);
@@ -528,14 +537,14 @@ a.toc-item { display: grid; }
   color: var(--vert-encre);
   opacity: 0.70;
   margin-bottom: clamp(32px, 4vh, 56px);
-  max-width: 560px;
+  max-width: 100%;
 }
 .essay-body {
   font-family: var(--f-body);
   font-size: clamp(17px, 1.4vw, 20px);
   line-height: 1.75;
   color: var(--ink);
-  max-width: 680px;
+  max-width: 100%;
 }
 .essay-body p:last-child { margin-bottom: 0; }
 .essay-body p + p { margin-top: 1.3em; }
@@ -545,7 +554,7 @@ a.toc-item { display: grid; }
   font-size: clamp(10px, 1vw, 15px);
   line-height: 1.75;
   color: var(--ink);
-  max-width: 680px;
+  max-width: 100%;
 }
 
 /* PULLQUOTE — italic assumé, texte aligné gauche avec indentation */
@@ -555,7 +564,7 @@ a.toc-item { display: grid; }
   font-style: italic; /* était normal, maintenant italic */
   line-height: 1.25;
   letter-spacing: -0.01em;
-  max-width: 560px;
+  max-width: 100%;
 }
 
 .essay-pullquote--promise {
@@ -567,14 +576,6 @@ a.toc-item { display: grid; }
   padding: clamp(24px, 3vh, 36px) 0;
   margin: clamp(48px, 6vh, 80px) auto;
 
-}
-
-.essay-pullquote--witness {
-  color: var(--peche);
-  font-size: clamp(15px, 2vw, 25px);
-  max-width: 100%;
-  border: none;
-  padding: clamp(24px, 3vh, 36px) 0;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -614,7 +615,7 @@ a.toc-item { display: grid; }
   grid-column: 1;
   grid-row: 1;
   align-self: start;
-  max-width: 680px;
+  max-width: 100%;
 }
 .deepcut-body p + p { margin-top: 1.6em; }
 
@@ -729,67 +730,99 @@ a.toc-item { display: grid; }
   top: calc(-1 * clamp(20px, 3vw, 40px));
 }
 .question-top .s-label { color: var(--creme); opacity: 0.65; }
-.question-top .s-rule { background: var(--creme); opacity: 0.22; }
+.question-top .s-rule  { background: var(--creme); opacity: 0.22; }
 
 .question-dark {
   padding: clamp(48px, 6vh, 80px) var(--px) clamp(64px, 8vh, 110px);
 }
 
-/* QUESTION TEXT — option C : split 300 / 700 via .question-text-strong */
+/* Layout B — question à gauche, réponses à droite */
+.question-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(48px, 7vw, 96px);
+  align-items: start;
+}
+
 .question-text {
   font-family: var(--f-title);
   font-weight: 300;
   font-style: italic;
-  font-size: clamp(32px, 5.5vw, 76px);
+  font-size: clamp(28px, 4vw, 58px);
   line-height: 1.1;
   color: var(--peche);
   letter-spacing: -0.01em;
-  max-width: 680px;
-  margin-bottom: clamp(40px, 5vh, 64px);
+  position: sticky;
+  top: 120px;
 }
 .question-text strong {
   font-weight: 700;
   font-style: italic;
 }
 
+.question-responses {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: clamp(4px, 0.5vh, 8px);
+}
+
 .question-answer {
   font-family: var(--f-body);
-  font-size: clamp(17px, 1.4vw, 20px);
-  line-height: 1.75;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.8;
   font-style: italic;
   color: var(--creme);
-  opacity: 0.88; /* relevé de 0.75 → 0.88 pour le contraste */
-  max-width: 680px;
+  opacity: 0.88;
 }
-.question-answer p + p { margin-top: 1.2em; }
 
 .question-source {
+  display: block;
   font-family: var(--f-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--peche);
   opacity: 0.45;
-  margin-top: 8px;
+  margin-top: 10px;
+}
+
+.question-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--peche);
+  opacity: 0.12;
+  margin: clamp(24px, 3vh, 36px) 0;
 }
 
 .question-cta {
   font-family: var(--f-body);
   font-style: italic;
-  font-size: clamp(20px, 1.3vw, 24px);
+  font-size: clamp(16px, 1.2vw, 20px);
   color: var(--peche);
-  opacity: 0.75;
-  margin-top: clamp(24px, 3vh, 32px);
+  opacity: 0.65;
+  margin-top: clamp(32px, 4vh, 48px);
+  line-height: 1.6;
 }
-
 .question-cta a::after {
   content: ' →';
   opacity: 0;
   transition: opacity 0.2s;
 }
+.question-cta a:hover::after { opacity: 1; }
 
-.question-cta a:hover::after {
-  opacity: 1;
+/* Mobile — empilement */
+@media (max-width: 860px) {
+  .question-layout {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 48px);
+  }
+  .question-text {
+    position: static;
+    font-size: clamp(26px, 7.5vw, 40px);
+  }
 }
+
 /* ══════════════════════════════════════════════════════════
    06 PLAYLIST
 ══════════════════════════════════════════════════════════ */
@@ -818,7 +851,7 @@ a.toc-item { display: grid; }
   margin-bottom: clamp(48px, 6vh, 80px);
 }
 .tracks {
-  max-width: 680px;
+  max-width: 100%;
   margin: 0;
 }
 .track {
@@ -1456,7 +1489,7 @@ a.toc-item { display: grid; }
   /* ── Edito dark ── */
   .edito-dark-text p {
     font-size: clamp(15px, 4vw, 17px);
-    max-width: 780px;  
+    max-width: 100%;  
   }
   .edito-title {
     font-size: clamp(40px, 11vw, 60px);
@@ -1467,6 +1500,7 @@ a.toc-item { display: grid; }
     font-size: clamp(28px, 8vw, 40px);
   }
 }
+
 
 [id] { scroll-margin-top: 120px; }
 
