@@ -578,12 +578,14 @@ a.toc-item { display: grid; }
 
 }
 
-.essay-pullquote--witness {
-  color: var(--peche);
-  font-size: clamp(15px, 2vw, 25px);
-  max-width: 100%;
-  border: none;
-  padding: clamp(24px, 3vh, 36px) 0;
+.essay-body--witness {
+  font-family: var(--f-title);
+  font-style: italic;
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.7;
+  color: var(--ink);
+  opacity: 0.80;
+  margin: clamp(40px, 5vh, 64px) 0;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -812,12 +814,27 @@ a.toc-item { display: grid; }
   margin-top: clamp(32px, 4vh, 48px);
   line-height: 1.6;
 }
-.question-cta a::after {
-  content: ' →';
-  opacity: 0;
+.question-cta a {
+  color: var(--peche);
+  opacity: 0.90;
+  display: inline-block;
+  margin-top: 8px;
+  position: relative;
+  padding-bottom: 2px;
   transition: opacity 0.2s;
 }
-.question-cta a:hover::after { opacity: 1; }
+
+.question-cta a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 0.5px;
+  background: var(--peche);
+  transition: width 0.35s ease-out;
+}
+
+.question-cta a:hover { opacity: 1; }
+.question-cta a:hover::after { width: 100%; }
 
 /* Mobile — empilement */
 @media (max-width: 860px) {
