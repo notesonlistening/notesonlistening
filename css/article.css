@@ -191,16 +191,9 @@
   margin-top: 2em;
 }
 
+
 /* ── ISSUE LINK — "Read the full issue" ──────────────────── */
 /* Seul, avant le footer. DM Mono, texte avec flèche hover. */
-.article-issue-link {
-  padding: clamp(64px, 9vh, 110px) var(--px) clamp(48px, 6vh, 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  text-align: center;
-}
 
 .article-issue-rule {
   width: 48px;
@@ -290,12 +283,13 @@
   background: var(--creme);
   overflow: hidden;
   position: relative;
-  min-height: 65vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: clamp(100px, 14vh, 160px) var(--px) 0;
+  padding: clamp(100px, 14vh, 160px) var(--px) clamp(32px, 4vh, 48px);
 }
+
 
 /* "1977" géant en watermark derrière le texte */
 .angle-year-bg {
@@ -702,21 +696,6 @@
   font-size: clamp(72px, 10vw, 130px);
 }
 
-/* Read the full issue — version gauche, plus visible */
-.article-issue-link--left {
-  align-items: flex-start;
-  text-align: left;
-}
-.article-issue-link--left .article-issue-rule {
-  width: 32px;
-}
-.article-issue-link--left .article-issue-cta {
-  opacity: 0.65;
-  font-size: 11px;
-}
-.article-issue-link--left .article-issue-name {
-  opacity: 0.50;
-}
 
 /* MEAM box — pleine largeur, sous le texte */
 .article-meam-box--full {
@@ -766,11 +745,6 @@
 }
 
 /* The Angle — hero sans min-height contrainte */
-.angle-hero {
-  min-height: auto;
-  padding-bottom: clamp(40px, 5vh, 64px);
-}
-
 /* Mobile : titre-badge en colonne sur très petits écrans */
 @media (max-width: 500px) {
   .article-title-row {
@@ -840,12 +814,6 @@
   font-family: var(--f-mono);
 }
 .article-issue-cta-main:hover::after { opacity: 1; }
-
-/* The Angle — hero réduit, juste badge + méta              */
-.angle-hero {
-  min-height: auto;
-  padding-bottom: clamp(32px, 4vh, 48px);
-}
 
 /* article-title-row quand il n'a que le badge (The Angle)  */
 .article-title-row:has(.badge:only-child) {
