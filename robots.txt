@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
 
-Disallow: /1977/
-Disallow: /the-question/
-Disallow: /playlist/
-
 Sitemap: https://notesonlistening.com/sitemap.xml

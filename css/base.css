@@ -1,4 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700;1,9..144,900&family=DM+Mono:wght@300;400;500&display=swap');
+/* ─── FONTS AUTO-HÉBERGÉES ────────────────────────────────── */
+/* RGPD-compliant — aucun transfert vers Google              */
+
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/dm-mono-latin-300-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/dm-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/dm-mono-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/cormorant-garamond-latin-300-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/cormorant-garamond-latin-300-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/cormorant-garamond-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/cormorant-garamond-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/cormorant-garamond-latin-500-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/fraunces-latin-standard-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/fraunces-latin-standard-italic.woff2') format('woff2');
+}
 
 /* ─── TOKENS ──────────────────────────────────────────────── */
 :root {
@@ -121,4 +200,45 @@ ul, ol { list-style: none; }
   --cat-self:    #5C9E78;   /* Sound of Self */
   --cat-record:  #3D2952;   /* Off Record */
   --cat-angle:   #6B2D3A;   /* The Angle Nobody Tells */
+}
+/* ─── FOCUS VISIBLE ───────────────────────────────────────── */
+/* WCAG 2.4.7 — navigation clavier visible                   */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--terra);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.nav-panel :focus-visible,
+.question-dark :focus-visible {
+  outline-color: var(--peche);
+}
+
+/* ─── PREFERS-REDUCED-MOTION ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .nav-drawer,
+  .nav-panel,
+  .read-progress,
+  .back-top {
+    transition: none;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ─── SCREEN READER ONLY ─────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Issues — Notes on LISTENING</title>
+  <meta name="description" content="All issues of Notes on LISTENING. Music, memory, and what happens in between." />
+  <meta name="author" content="Notes on LISTENING" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Issues — Notes on LISTENING" />
+  <meta property="og:description" content="All issues of Notes on LISTENING." />
+  <meta property="og:url"         content="https://notesonlistening.com/issues/" />
+  <meta property="og:locale"      content="en_GB" />
+  <meta property="og:site_name"   content="Notes on LISTENING" />
+
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/favicon.svg" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/home.css" />
+
+  <style>
+    /* ══════════════════════════════════════════════════════════
+       PAGE
+    ══════════════════════════════════════════════════════════ */
+    .issues-page {
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════════════════ */
+    .issues-header {
+      padding: clamp(48px, 7vh, 80px) var(--px) clamp(28px, 3.5vh, 44px);
+      border-bottom: 0.5px solid rgba(30,38,32,0.12);
+    }
+    .issues-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.30;
+      margin-bottom: 8px;
+    }
+    .issues-title {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(44px, 7vw, 80px);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+    .issues-sub {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      color: var(--ink);
+      opacity: 0.40;
+      margin-top: 18px;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       LISTE
+    ══════════════════════════════════════════════════════════ */
+    .issues-body {
+      padding: clamp(40px, 6vh, 72px) var(--px) clamp(64px, 9vh, 110px);
+    }
+
+    .issue-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 0 clamp(20px, 3vw, 44px);
+      align-items: baseline;
+      padding: clamp(24px, 3.5vh, 36px) 0;
+      border-bottom: 0.5px solid rgba(30,38,32,0.08);
+      text-decoration: none;
+      color: var(--ink);
+      transition: opacity 0.18s;
+    }
+    .issue-row:first-child {
+      border-top: 0.5px solid rgba(30,38,32,0.08);
+    }
+    .issue-row:hover {
+      opacity: 0.65;
+    }
+
+    .issue-num {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--terra);
+      flex-shrink: 0;
+    }
+
+    .issue-info {}
+    .issue-date {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 6px;
+    }
+    .issue-name {
+      font-family: var(--f-title);
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(20px, 2.8vw, 30px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 7px;
+    }
+    .issue-tagline {
+      font-family: var(--f-body);
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink);
+      opacity: 0.55;
+    }
+
+    .issue-arrow {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      opacity: 0.25;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      align-self: center;
+      transition: opacity 0.18s;
+    }
+    .issue-row:hover .issue-arrow {
+      opacity: 0.70;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       MOBILE
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .issue-row {
+        grid-template-columns: 52px 1fr;
+        gap: 0 16px;
+      }
+      .issue-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAV
+════════════════════════════════════════ -->
+<nav class="nav" id="nav" aria-label="Site navigation">
+  <a href="../" class="nav-logo" aria-label="Notes on LISTENING — home">
+    <div class="nav-logo-text">
+      <span class="top">Notes on</span>
+      <span class="bottom">LISTENING</span>
+    </div>
+  </a>
+
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="../issues/" style="opacity:0.5; pointer-events:none;" tabindex="-1">Issues</a></li>
+      <li><a href="../explore.html">Explore</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span class="nav-menu-label">MENU</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Panneau mobile -->
+<div class="nav-panel" id="nav-panel" aria-hidden="true">
+  <div class="nav-panel-inner">
+    <button class="nav-panel-close" id="nav-panel-close" aria-label="Close menu">CLOSE</button>
+    <nav class="nav-panel-toc">
+      <a href="../issues/" class="nav-panel-item">Issues</a>
+      <a href="../explore.html" class="nav-panel-item">Explore</a>
+      <a href="../about.html" class="nav-panel-item">About</a>
+    </nav>
+    <p class="nav-panel-meta">Notes on LISTENING</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE
+════════════════════════════════════════ -->
+<div class="issues-page">
+
+  <header class="issues-header reveal">
+    <div class="issues-eyebrow">Archive</div>
+    <h1 class="issues-title">Issues</h1>
+    <p class="issues-sub">All issues, in order.</p>
+  </header>
+
+  <div class="issues-body">
+
+    <!-- Issue 00 -->
+    <a href="00/issue00.html" class="issue-row reveal">
+      <div class="issue-num">00</div>
+      <div class="issue-info">
+        <div class="issue-date">June 2026</div>
+        <div class="issue-name">The First Time</div>
+        <div class="issue-tagline">On waiting, wanting, and the chemistry of joy.</div>
+      </div>
+      <span class="issue-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-tagline">The music doesn't change. You do.</div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="../about.html">About</a>
+      <a href="../explore.html">Explore</a>
+      <a href="../privacy.html">Privacy</a>
+      <a href="../terms.html">Terms</a>
+    </nav>
+    <div class="footer-copy">© Notes on LISTENING</div>
+  </div>
+</footer>
+
+<script>
+  // ── Reveal on scroll ────────────────────────────────────
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }),
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Mobile panel ────────────────────────────────────────
+  const menuBtn   = document.getElementById('nav-menu-btn');
+  const closeBtn  = document.getElementById('nav-panel-close');
+  const panel     = document.getElementById('nav-panel');
+  const openMenu  = () => { panel.classList.add('is-open'); panel.setAttribute('aria-hidden','false'); menuBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+  const closeMenu = () => { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden','true'); menuBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  if (menuBtn) menuBtn.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+  <script src="../js/nol.js"></script>
+</body>
+</html>
