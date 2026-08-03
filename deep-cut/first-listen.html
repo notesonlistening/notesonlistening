@@ -51,7 +51,9 @@
 
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="../issues/">Issues</a></li>
+      <li><a href="../issues/" class="nav-link-soon" tabindex="-1" aria-disabled="true">Issues</a></li>
+      <!-- ISSUE 01: décommenter + mettre à jour l'URL -->
+      <!-- <li><a href="../issues/00/issue00.html">Latest</a></li> -->
       <li><a href="../explore.html">Explore</a></li>
       <li><a href="../about.html">About</a></li>
     </ul>
@@ -70,7 +72,8 @@
       <a href="../essay/a-promise.html" class="nav-panel-item">Essay</a>
       <a href="../theangle/fleetwoodmac.html" class="nav-panel-item">The Angle Nobody Tells</a>
       <div class="nav-panel-sep"></div>
-      <a href="../issues/" class="nav-panel-item--small">Issues</a>
+      <a href="../issues/" class="nav-panel-item--small" style="opacity:0.28;pointer-events:none;" tabindex="-1" aria-disabled="true">Issues</a>
+      <!-- <a href="../issues/00/issue00.html" class="nav-panel-item--small">Latest</a> -->
       <a href="../explore.html" class="nav-panel-item--small">Explore</a>
       <a href="../about.html" class="nav-panel-item--small">About</a>
     </nav>
@@ -184,6 +187,5 @@
   menuPanel.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 </script>
-  <script src="../js/nol.js"></script>
 </body>
 </html>

@@ -13,146 +13,18 @@
   <meta property="og:url"         content="https://notesonlistening.com/issues/" />
   <meta property="og:locale"      content="en_GB" />
   <meta property="og:site_name"   content="Notes on LISTENING" />
-
+  <link rel="canonical" href="https://notesonlistening.com/issues/" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="apple-touch-icon" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../css/base.css" />
   <link rel="stylesheet" href="../css/home.css" />
+  <link rel="stylesheet" href="../css/page.css" />
 
-  <style>
-    /* ══════════════════════════════════════════════════════════
-       PAGE
-    ══════════════════════════════════════════════════════════ */
-    .issues-page {
-      padding-top: 80px;
-      min-height: 100vh;
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════════════════════════ */
-    .issues-header {
-      padding: clamp(48px, 7vh, 80px) var(--px) clamp(28px, 3.5vh, 44px);
-      border-bottom: 0.5px solid rgba(30,38,32,0.12);
-    }
-    .issues-eyebrow {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink);
-      opacity: 0.30;
-      margin-bottom: 8px;
-    }
-    .issues-title {
-      font-family: var(--f-title);
-      font-style: italic;
-      font-weight: 900;
-      font-size: clamp(44px, 7vw, 80px);
-      line-height: 0.88;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-      margin-top: 12px;
-      margin-bottom: 12px;
-    }
-    .issues-sub {
-      font-family: var(--f-mono);
-      font-size: 10px;
-      letter-spacing: 0.10em;
-      color: var(--ink);
-      opacity: 0.40;
-      margin-top: 18px;
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       LISTE
-    ══════════════════════════════════════════════════════════ */
-    .issues-body {
-      padding: clamp(40px, 6vh, 72px) var(--px) clamp(64px, 9vh, 110px);
-    }
-
-    .issue-row {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 0 clamp(20px, 3vw, 44px);
-      align-items: baseline;
-      padding: clamp(24px, 3.5vh, 36px) 0;
-      border-bottom: 0.5px solid rgba(30,38,32,0.08);
-      text-decoration: none;
-      color: var(--ink);
-      transition: opacity 0.18s;
-    }
-    .issue-row:first-child {
-      border-top: 0.5px solid rgba(30,38,32,0.08);
-    }
-    .issue-row:hover {
-      opacity: 0.65;
-    }
-
-    .issue-num {
-      font-family: var(--f-title);
-      font-style: italic;
-      font-weight: 900;
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 0.9;
-      letter-spacing: -0.03em;
-      color: var(--terra);
-      flex-shrink: 0;
-    }
-
-    .issue-info {}
-    .issue-date {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      opacity: 0.35;
-      margin-bottom: 6px;
-    }
-    .issue-name {
-      font-family: var(--f-title);
-      font-style: italic;
-      font-weight: 700;
-      font-size: clamp(20px, 2.8vw, 30px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 7px;
-    }
-    .issue-tagline {
-      font-family: var(--f-body);
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--ink);
-      opacity: 0.55;
-    }
-
-    .issue-arrow {
-      font-family: var(--f-mono);
-      font-size: 11px;
-      opacity: 0.25;
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-      align-self: center;
-      transition: opacity 0.18s;
-    }
-    .issue-row:hover .issue-arrow {
-      opacity: 0.70;
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       MOBILE
-    ══════════════════════════════════════════════════════════ */
-    @media (max-width: 640px) {
-      .issue-row {
-        grid-template-columns: 52px 1fr;
-        gap: 0 16px;
-      }
-      .issue-arrow { display: none; }
-    }
-  </style>
 </head>
-<body>
+<body class="page--secondary">
+
+<!-- Skip to content — navigation clavier (WCAG 2.4.1) -->
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <!-- ════════════════════════════════════════
      NAV
@@ -167,9 +39,7 @@
 
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="../issues/" class="nav-link-soon" tabindex="-1" aria-disabled="true">Issues</a></li>
-      <!-- ISSUE 01: décommenter + mettre à jour l'URL -->
-      <!-- <li><a href="../issues/00/issue00.html">Latest</a></li> -->
+      <li><a href="../issues/" style="opacity:0.5; pointer-events:none;" tabindex="-1">Issues</a></li>
       <li><a href="../explore.html">Explore</a></li>
       <li><a href="../about.html">About</a></li>
     </ul>
@@ -183,11 +53,10 @@
 <div class="nav-panel" id="nav-panel" aria-hidden="true">
   <div class="nav-panel-inner">
     <button class="nav-panel-close" id="nav-panel-close" aria-label="Close menu">CLOSE</button>
-    <nav class="nav-panel-toc">
-      <a href="../issues/" class="nav-panel-item" style="opacity:0.28;pointer-events:none;" tabindex="-1" aria-disabled="true">Issues</a>
-      <!-- <a href="../issues/00/issue00.html" class="nav-panel-item--small">Latest</a> -->
-      <a href="../explore.html" class="nav-panel-item">Explore</a>
-      <a href="../about.html" class="nav-panel-item">About</a>
+    <nav class="nav-panel-toc" aria-label="Mobile navigation">
+      <a href="../issues/"   class="nav-panel-item--small" aria-current="page">Issues</a>
+      <a href="../explore.html" class="nav-panel-item--small">Explore</a>
+      <a href="../about.html"   class="nav-panel-item--small">About</a>
     </nav>
     <p class="nav-panel-meta">Notes on LISTENING</p>
   </div>
@@ -196,6 +65,7 @@
 <!-- ════════════════════════════════════════
      PAGE
 ════════════════════════════════════════ -->
+<main id="main-content">
 <div class="issues-page">
 
   <header class="issues-header reveal">
@@ -219,6 +89,7 @@
 
   </div>
 </div>
+</main>
 
 <!-- ════════════════════════════════════════
      FOOTER
@@ -254,5 +125,6 @@
   if (closeBtn) closeBtn.addEventListener('click', closeMenu);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 </script>
+  <script src="../js/nol.js"></script>
 </body>
 </html>

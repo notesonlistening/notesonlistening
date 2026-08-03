@@ -30,8 +30,8 @@
   <link rel="canonical" href="https://notesonlistening.com/issues/00/issue00.html" />
 
   <!-- ─── Favicon ──────────────────────────────── -->
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
-  <link rel="apple-touch-icon" href="../assets/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+<link rel="apple-touch-icon" href="../../assets/favicon.svg" />
 
   <!-- ─── Styles ──────────────────────────────── -->
   <link rel="stylesheet" href="../../css/base.css" />
@@ -93,7 +93,9 @@
 
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="../../issues/">Issues</a></li>
+      <li><a href="../../issues/" class="nav-link-soon" tabindex="-1" aria-disabled="true">Issues</a></li>
+      <!-- ISSUE 01: décommenter + mettre à jour l'URL -->
+      <!-- <li><a href="../../issues/00/issue00.html">Latest</a></li> -->
       <li><a href="../../explore.html">Explore</a></li>
       <li><a href="../../about.html">About</a></li>
     </ul>
@@ -116,7 +118,8 @@
       <a href="#question" class="nav-panel-item" data-num="05">The Question</a>
       <a href="#playlist" class="nav-panel-item" data-num="06">The Playlist</a>
       <div class="nav-panel-sep"></div>
-      <a href="../../issues/" class="nav-panel-item--small">Issues</a>
+      <a href="../../issues/" class="nav-panel-item--small" style="opacity:0.28;pointer-events:none;" tabindex="-1" aria-disabled="true">Issues</a>
+      <!-- <a href="../../issues/00/issue00.html" class="nav-panel-item--small">Latest</a> -->
       <a href="../../explore.html" class="nav-panel-item--small">Explore</a>
       <a href="../../about.html" class="nav-panel-item--small">About</a>
     </nav>
@@ -812,4 +815,3 @@
   }
 
 </script>
-  <script src="../../js/nol.js"></script>

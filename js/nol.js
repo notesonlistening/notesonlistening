@@ -1,67 +1,70 @@
 /* ═══════════════════════════════════════════════════════════
    NOL — Configuration globale
-   Mettre à jour NOL_LATEST à chaque nouvelle issue.
+   ───────────────────────────────────────────────────────────
+   À chaque nouvelle issue, mettre à jour :
+     NOL_LATEST.url   → chemin depuis la racine
+     NOL_LATEST.label → label affiché
+     NOL_ISSUES_LIVE  → true quand l'archive a du sens
 ═══════════════════════════════════════════════════════════ */
 
 var NOL_LATEST = {
-  url:   'issues/00/issue00.html',   /* chemin relatif depuis la racine */
-  label: 'Issue 00',                 /* affiché en title si besoin      */
+  url:   'issues/00/issue00.html',
+  label: 'Issue 00',
 };
 
-/* ── Injection "Latest" dans la nav ────────────────────────
-   Cherche le lien Issues dans nav-links et nav-panel,
-   insère Latest juste après, avec le bon chemin relatif.
-   Calcule automatiquement le préfixe selon la profondeur
-   de la page courante.
+var NOL_ISSUES_LIVE = false;
+
+/* ── Injection nav ─────────────────────────────────────────
+   Calcule le préfixe relatif selon la profondeur de la page,
+   injecte Latest après Issues (desktop + mobile),
+   grise Issues si NOL_ISSUES_LIVE = false.
 ──────────────────────────────────────────────────────────── */
 (function () {
-  /* Profondeur de la page par rapport à la racine */
   var depth = (window.location.pathname.match(/\//g) || []).length - 1;
   var prefix = '';
   for (var i = 0; i < depth; i++) prefix += '../';
 
-  var href = prefix + NOL_LATEST.url;
-
-  function insertLatest(anchor) {
-    /* Évite les doublons */
-    if (anchor.parentNode.nextElementSibling &&
-        anchor.parentNode.nextElementSibling.dataset.nolLatest) return;
-
-    var isSmall = anchor.classList.contains('nav-panel-item--small');
-    var isPanelItem = anchor.classList.contains('nav-panel-item');
-
-    var a = document.createElement('a');
-    a.href = href;
-    a.textContent = 'Latest';
-
-    if (isSmall || isPanelItem) {
-      /* Mobile panel — insérer le <a> directement après */
-      a.className = anchor.className;
-      a.dataset.nolLatest = '1';
-      anchor.parentNode.insertBefore(a, anchor.nextSibling);
-    } else {
-      /* Desktop nav — wrap dans <li> */
-      var li = document.createElement('li');
-      li.dataset.nolLatest = '1';
-      li.appendChild(a);
-      anchor.parentNode.insertBefore(li, anchor.nextSibling);
-    }
-  }
-
   document.addEventListener('DOMContentLoaded', function () {
-    /* Trouve tous les liens "Issues" dans nav-links et nav-panel */
-    document.querySelectorAll('.nav-links a, .nav-panel-item--small, .nav-panel-item').forEach(function (a) {
-      if (a.textContent.trim() === 'Issues') insertLatest(a);
-    });
 
-    /* Grise "Latest" si on est déjà sur la page de la dernière issue */
-    var path = window.location.pathname;
-    var isLatestPage = path.indexOf('issues/00/issue00.html') !== -1;
-    if (isLatestPage) {
-      document.querySelectorAll('.nav-links [data-nol-latest] a').forEach(function (a) {
-        a.style.opacity = '0.35';
-        a.style.pointerEvents = 'none';
+    /* ── Griser Issues si pas encore live ─── */
+    if (!NOL_ISSUES_LIVE) {
+      document.querySelectorAll(
+        '.nav-links a, .nav-panel-item, .nav-panel-item--small'
+      ).forEach(function (a) {
+        if (a.textContent.trim() === 'Issues') {
+          a.style.opacity = '0.28';
+          a.style.pointerEvents = 'none';
+          a.setAttribute('tabindex', '-1');
+          a.setAttribute('aria-disabled', 'true');
+        }
       });
     }
+
+    /* ── Injecter Latest ─────────────────── */
+    var latestHref = prefix + NOL_LATEST.url;
+
+    document.querySelectorAll(
+      '.nav-links a, .nav-panel-item, .nav-panel-item--small'
+    ).forEach(function (anchor) {
+      if (anchor.textContent.trim() !== 'Issues') return;
+      if (anchor.dataset.latestInserted) return;
+      anchor.dataset.latestInserted = '1';
+
+      var a = document.createElement('a');
+      a.href = latestHref;
+      a.textContent = 'Latest';
+
+      var inNavLinks = !!anchor.closest('.nav-links');
+
+      if (inNavLinks) {
+        var li = document.createElement('li');
+        li.appendChild(a);
+        anchor.parentNode.insertAdjacentElement('afterend', li);
+      } else {
+        a.className = anchor.className;
+        anchor.insertAdjacentElement('afterend', a);
+      }
+    });
+
   });
 })();
